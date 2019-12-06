@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+* {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 600;
+}
+
+body {
+  outline: 0;
+  background-image: url(/img/svg/register.svg);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position-x: right;
+}
+
+.c {
+  font-weight: 700;
+  text-align: center;
+}
+
+.register {
+  width: 25%;
+  left: 100px;
+  margin: auto;
+  top: 50px;
+  position: absolute;
+  padding: 50px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 15px 1px #d3d3d363;
+}
+
+.logoreg {
+  width: 20%;
+  margin: auto;
+  display: block;
+}
+
+.register label{
+  display: block;
+  color: #757575;
+  margin-top: 20px;
+}
+
+input {
+  margin: 10px 0px;
+  font-size: 14px;
+  width:  94%;
+  padding: 3%;
+  border: none;
+  border-bottom: 1px solid #00A8E8;
+  transition: 0.4s;
+  background-color: #ffffff85;
+}
+
+input::placeholder {
+  font-size: 14px;
+}
+
+button[type='submit'] {
+  width: 100%;
+  height: 50px;
+  background-color: #1673ff;
+  border: none;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 20px 0px;
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+button[type='submit']:hover {
+  box-shadow: 0px 0px 15px 3px #1673ff57;
+  cursor: pointer;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.mainheading {
+  text-align: center;
+}
+
+.right img {
+  right: 0;
+  height: 65%;
+  position: absolute;
+  margin: 10%;
+}
+
+#uni-radio-selection {
+  border-radius: 5px;
+  background-color: white;
+  padding: 15px 20px;
+  margin: 8px 0px;
+  display: inline-block;
+  text-align: center;
+  width: 20%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#uni-radio-selection label {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.unileft {
+  margin-right: 25px !important;
+}
+
+.checked {
+  background-image: linear-gradient(45deg, white, #fbfbfb);
+  box-shadow: 0px 0px 15px 1px #1673ff57;
+}
+
+#uni-radio-selection img {
+  width: 40%;
+}
+
+#uni-radio-selection svg {
+  font-size: 250%;
+  color: #1673ff;
+}
+
+#uni-radio-selection input {
+  position: fixed;
+  opacity: 0;
+}
+
+.card-body{
+  border: none;
+}
+
+.account-svg {
+  z-index: 0;
+  width: 80%;
+  right: 0;
+  position: absolute;
+}
+
+@media only screen and (max-width: 1800px) {
+  .unileft {
+    margin-right: 15px !important;
+  }
+
+  .register {
+    background-color: #ffffff8f;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .register {
+    width: 75%;
+    left: 0;
+    position: unset;
+  }
+
+  #uni-radio-selection svg {
+    font-size: 105px; 
+  }
+}

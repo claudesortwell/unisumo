@@ -1,0 +1,69 @@
+<link rel="stylesheet" type="text/css" href="/css/accountlogin.css">
+<div class="split left">
+<div class="form register">
+  <img class="logoreg" src="/img/svg/logoico.svg">
+  <h1 class="mainheading">Register</h1>
+  <% include ./partials/messages %>
+  <form action="/users/register" method="POST">
+    <div class="form-group">
+      <input
+        type="name"
+        id="name"
+        name="name"
+        class="form-control"
+        placeholder="Name"
+        value="<%= typeof name != 'undefined' ? name : '' %>"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder='Email'
+        value="<%= typeof email != 'undefined' ? email : '' %>"
+      />
+    </div>
+    <div class="form-group">
+      <div id="uni-selection">
+          <label for="unichoice">Select University</label><br>
+          <span id="uni-radio-selection" class="unileft" onclick="radioSelect('MQU', this)"><input type="radio" id="MQU" name="uni" value="MQU"><img src="/img/unilogos/mqu.png"><label style="color: black">Macquarie<br>University</label></span>
+          <span id="uni-radio-selection" class="unileft" onclick="radioSelect('OTHER', this)"><input type="radio" id="OTHER" name="uni" value="OTHER"><i class="fas fa-graduation-cap"></i><label style="color: black">Other<br>University</label></span>
+          <span id="uni-radio-selection" class="" onclick="radioSelect('NO', this)"><input type="radio" id="NO" name="uni" value="NO"><i class="fas fa-graduation-cap"></i><label style="color: black">No<br>University</label></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Create Password"
+        value="<%= typeof password != 'undefined' ? password : '' %>"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        id="password2"
+        name="password2"
+        class="form-control"
+        placeholder="Confirm Password"
+        value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">
+      SIGN UP
+    </button>
+  </form>
+  <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+</div>
+<!-- Script for uni radio options -->
+<script>
+  function radioSelect(choice, span) {
+    document.getElementById(choice).checked = true;
+    $('#uni-selection > span').removeClass('checked');
+    $(span).addClass('checked');
+  }
+</script>

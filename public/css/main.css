@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.mainblue {
+    background-color: #2196f3;
+    color: #f8fdff;
+}
+
+.mainblueshadow:hover {
+    box-shadow: 0px 0px 15px 2px #2196f3;
+}
+
+.lightgray {
+    background-color: #e8eff5;
+    color: #264b75;
+}
+
+.lightgrayshadow:hover {
+    box-shadow: 0px 0px 15px 2px #e8eff5;
+}
+
+.white {
+    background-color: #f8fdff;
+    color: #264b75;
+}
+
+.darkblue {
+    background-color: #264b75;
+    color: #e8eff5;
+}
+
+.darkblueshadow:hover {
+    box-shadow: 0px 0px 15px 2px #264b75;
+}
+
+.darkgrey {
+    background-color: #7798b7;
+    color: #e8eff5;
+}
+
+.darkgreyshadow:hover {
+    box-shadow: 0px 0px 15px 2px #7798b7;
+}
+
+.green {
+    background-color: #01c853;
+    color: #f8fdff;
+}
+
+.greenshadow:hover {
+    box-shadow: 0px 0px 15px 2px #01c853;
+}
+
+.yellow {
+    background-color: #ff9801;
+    color: #f8fdff;
+}
+
+.yellowshadow:hover {
+    box-shadow: 0px 0px 15px 2px #ff9801;
+}
+
+.transShadow {
+    transition: box-shadow 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-dismissible {
+    padding-right: 4rem;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-dismissible .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .75rem 1.25rem;
+    color: inherit;
+}
+
+.close {
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+/* Welcome Page CSS */
+.welcome_nav {
+    width: 100vw;
+    height: 85px; 
+}
+
+.welcome_nav img {
+    width: 200px;
+    position: relative;
+    left: 15%;
+    top: 23px;
+}
+
+.welcome_nav_options {
+    right: 15%;
+    position: fixed;
+    list-style: none;
+    top: 0;
+}
+
+.welcome_nav_options ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.welcomebtn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin: 20px 10px;
+    top: 30px;
+    position: relative;
+}
+
+.welcomelink {
+    color: #264b75; 
+    text-decoration: none;
+    padding: 10px;
+    margin: 20px 10px;
+    top: 30px;
+    position: relative;
+}
+
+.welcomelink:hover{
+    text-shadow: 0px 0px 20px #264b75;
+}
+
+@media only screen and (max-width: 1120px) {
+    .welcomelink {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .welcome_nav img {
+        width: 125px;
+        top: 30px;
+    }
+
+    .welcomebtn {
+        padding: 10px 10px;
+        margin: 0px 5px;
+    }
+}
+
+
