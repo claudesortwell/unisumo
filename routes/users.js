@@ -9,7 +9,7 @@ const User = require('../models/User');
 // Login Page
 router.get('/login', function(req, res) {
     if(req.isAuthenticated()){
-        res.redirect('/');
+        res.redirect('/dashboard');
     } else {
         res.render('login');
     }
