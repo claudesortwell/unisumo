@@ -12,5 +12,4 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
         uni: req.user.uni
     }));
 
-
 module.exports = router;

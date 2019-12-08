@@ -28,7 +28,7 @@ app.use(express.urlencoded({extended: false}));
 
 // Express Session
 app.use(session({
-    secret: 'uni1secret',
+    secret: 'unisumoclaude',
     resave: false,
     saveUninitialized: true
 }));
@@ -52,6 +52,11 @@ app.use((req, res, next) =>{
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
-const PORT = process.env.PORT || 80;
+// Error Route
+app.get('*', function(req, res){
+    res.render('404');
+});
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`)); 
