@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const stripe = require("stripe")("sk_test_MDudRfYzqE83QdJjCof4TFhJ00sj9366rz");
 
 const app = express();
  

@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    payConfirmed: {
+        type: Date,
+        default: Date.now
     }
 });
 

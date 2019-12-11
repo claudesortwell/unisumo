@@ -11,7 +11,7 @@ router.get('/login', function(req, res) {
     if(req.isAuthenticated()){
         res.redirect('/dashboard');
     } else {
-        res.render('login');
+        res.render('login', {title:'Login'});
     }
 });
 
@@ -20,7 +20,7 @@ router.get('/register', function(req, res) {
     if(req.isAuthenticated()){
         res.redirect('/dashboard');
     } else {
-        res.render('register');
+        res.render('register', {title:'Register'});
     }
 });
 
