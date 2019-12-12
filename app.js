@@ -54,7 +54,7 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 
 // Error Route
-app.get('/', function(req, res){
+rounter.get('/', function(req, res){
     res.render('404');
 });
 
