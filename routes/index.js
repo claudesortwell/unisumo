@@ -12,11 +12,12 @@ router.get('/', function(req, res) {
 });
 
 // Dashboard Page
-router.get('/dashboard', ensureAuthenticated, (req, res) => 
+router.get('/dashboard', ensureAuthenticated, function(req, res) {
     res.render('dashboard', {
         name: req.user.name,
         uni: req.user.uni,
         title:'Dashboard'
-    }));
+    });
+});
 
 module.exports = router;
