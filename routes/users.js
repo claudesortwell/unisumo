@@ -113,14 +113,4 @@ router.get('/logout', (req, res) => {
     res.redirect('/users/login');
 });
 
-
-// 404 Error Page (Must be last one)
-router.get('/*', (req, res) => {
-    if(req.isAuthenticated()) {
-        res.render('404', {title: 'Page not found 404', auth: 'yes'});
-    } else {
-        res.render('404', {title: 'Page not found 404', auth: 'no'});
-    }
-});
-
 module.exports = router;

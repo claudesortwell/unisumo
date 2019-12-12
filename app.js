@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const stripe = require("stripe")("sk_test_MDudRfYzqE83QdJjCof4TFhJ00sj9366rz");
+
 
 const app = express();
  
@@ -52,6 +52,14 @@ app.use((req, res, next) =>{
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+
+app.use('*', (req, res) => {
+    if(req.isAuthenticated()) {
+        res.render('404', {title: 'Page not found 404', auth: 'yes'});
+    } else {
+        res.render('404', {title: 'Page not found 404', auth: 'no'});
+    }
+});
 
 const PORT = process.env.PORT || 5000;
 
