@@ -28,12 +28,22 @@
                         <a href="#pricing" class="nav-link">Pricing</a>
                     </li>
                 </ul>
+
+                <% if(auth == 'yes') { %>
+                <div class="navbar-button">
+                    <a href="/users/logout" class="btn btn-sm btn-custom btn-round">Logout</a>
+                </div>
+                <div class="navbar-button">
+                    <a href="/dashboard" class="btn btn-sm btn-custom btn-round">View Dashboard</a>
+                </div>
+                <% } else { %>
                 <div class="navbar-button">
                     <a href="/users/register" class="btn btn-sm btn-custom btn-round">Sign up</a>
                 </div>
                 <div class="navbar-button">
                     <a href="/users/login" class="btn btn-sm btn-custom btn-round">Login</a>
                 </div>
+                <% } %>
 
             </div>
         </div>
@@ -51,10 +61,16 @@
                             <div class="text-center">
                                 <h1 class="home-title-2 mt-5 pt-5">One Website to rule all University Work</h1>
                                 <p class="home-desc-2 text-white-50 mx-auto mt-3">Combine all your university apps, work and resources all in one simple to use web app. <br><Br> More Organisation, Less Work.</p>
-
+                                
+                                <% if(auth == 'yes') { %>
+                                <div class="home-button mt-4">
+                                    <a href="/dashboard" class="btn btn-outline btn-round mt-3">View Dashboard <i class="mdi mdi-view-dashboard-outline"></i></a>
+                                </div>
+                                <% } else { %>
                                 <div class="home-button mt-4">
                                     <a href="/users/register" class="btn btn-outline btn-round mt-3">Sign Up Now <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
+                                <% } %>
 
                                 <div class="home-img-2">
                                     <img src="img/test.png" alt="" class="img-fluid rounded">
@@ -228,9 +244,16 @@
                     <div class="cta-content text-center">
                         <h5 class="f-15 text-white-50 text-uppercase">Grab Unisumo For Best Price Today</h5>
                         <h3 class="cta-title line-height_1_6 mt-4">One Web App to help University Students Succeed with Ease.</h3>
-                        <div class="mt-5">
-                            <a href="/users/register" class="btn btn-custom btn-round">Register Now</a>
-                        </div>
+
+                        <% if(auth == 'yes') { %>
+                            <div class="mt-5">
+                                <a href="/dashboard" class="btn btn-custom btn-round">View Dashboard <i class="mdi mdi-view-dashboard-outline"></i></a>
+                            </div>
+                        <% } else { %>
+                            <div class="mt-5">
+                                <a href="/users/register" class="btn btn-custom btn-round">Register Now  <i class="mdi mdi-arrow-right"></i></a>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>

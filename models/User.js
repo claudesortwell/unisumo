@@ -22,8 +22,8 @@ const UserSchema = new mongoose.Schema({
         default: Date.now
     },
     payConfirmed: {
-        type: Date,
-        default: Date.now
+        type: Boolean,
+        default: 0
     }
 });
 
