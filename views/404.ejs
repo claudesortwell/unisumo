@@ -6,20 +6,32 @@ img {
 }
 
 h2 {
+    margin-top: 30px;
     text-align: center; 
+}
+
+.mt-5 {
+    text-align: center;
+    margin-top: 30px !important;
+}
+
+.container {
+    margin-top: 100px;
 }
 </style>
 
+<link rel="stylesheet" href="/welcomefiles/style.css">
+
 <div class="container">
-    <img src="https://i.redd.it/027y5vnaxrzy.jpg">
-    <h2>Error - Page not found</h2>
+    <img src="/img/404.png">
+    <h2>Sorry the page you requested was not found. <i class="mdi mdi-emoticon-sad-outline"></i></h2>
     <% if(auth == 'yes') { %>
         <div class="mt-5">
-            <a href="/dashboard" class="btn btn-custom btn-round">View Dashboard <i class="mdi mdi-view-dashboard-outline"></i></a>
+            <a href="/dashboard" class="btn btn-custom btn-round">Back to Dashboard <i class="mdi mdi-view-dashboard-outline"></i></a>
         </div>
     <% } else { %>
         <div class="mt-5">
-            <a href="/users/register" class="btn btn-custom btn-round">Register Now  <i class="mdi mdi-arrow-right"></i></a>
+            <a href="/" class="btn btn-custom btn-round">Home Page  <i class="mdi mdi-home-outline"></i></a>
         </div>
     <% } %>
 </div>
