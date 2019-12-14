@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const { ensureAuthenticated } = require('./config/auth');
+const STRIPE_API = require('./config/stripe-functions.js');
 
-
+// Init App
 const app = express();
  
 // Passport config
@@ -15,9 +17,11 @@ require('./config/passport')(passport);
 const db = require('./config/keys').MongoURI;
 
 // Connect to Mongo
-mongoose.connect(db, {useNewUrlParser: true }) 
+mongoose.connect(db, {useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
+
+const User = require('./models/User');
 
 // EJS
 app.use(expressLayouts);
@@ -52,6 +56,40 @@ app.use((req, res, next) =>{
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
+
+// Processing Stripe Payment
+app.use('/processPayment', ensureAuthenticated, (req, res) => {
+    if(req.body.planId == null){
+        res.redirect('/pay');
+        return;
+    }
+
+    STRIPE_API.createCustomerAndSubscription(req.body, req.user).then(() => {
+        let user = {};
+        user.name = req.user.name;
+        user.email = req.user.email;
+        user.uni = req.user.uni;
+        user.password = req.user.password;
+        user.date = req.user.date;
+        user.planVer = req.body.planId;
+
+        let query = {_id:req.user._id};
+
+        User.updateOne(query, user, function(err){
+            if(err){
+                console.log(err)
+                return;
+            } else {
+                res.redirect('/dashboard');
+            }
+        });
+
+
+    }).catch(err => {
+        console.log(err);
+        res.redirect('/pay');
+    });
+});
 
 app.use('*', (req, res) => {
     if(req.isAuthenticated()) {

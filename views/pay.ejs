@@ -5,12 +5,11 @@ body {
 </Style>
 
 <div class="container" style="background-color: #fafaff !important;" onload="bodyBackground()">
-    <br>
-    <h1 class="title-heading text-center">Subscription Plans</h1>
     <br><br>
+    <h1 class="title-heading text-center" style="font-weight: bolder;">Subscription Plans</h1>
     <% include ./partials/messages %>
 
-    <div class="row mt-4">
+    <div id="planOptions" class="row mt-4">
         <div class="col-lg-3" >
             <div class="pricing-box text-center p-5 mt-5">
                 <h4 class="pricing-plan text-uppercase">Basic plan</h4>
@@ -25,7 +24,7 @@ body {
                     <i class="mdi mdi-cancel" style="color:red;"></i> Live Grammer Checker<br>
                 </p>
                 <div class="mt-5">
-                    <a href="/users/register" class="btn btn-secondary btn-sm btn-round">Join Now</a>
+                    <a href="#" onclick="showPayment(1)" class="btn btn-secondary btn-sm btn-round">Pay</a href="#">
                 </div>
             </div>
         </div>
@@ -44,7 +43,7 @@ body {
                     <i class="mdi mdi-cancel" style="color:red;"></i> Live Grammer Checker<br>
                 </p>
                 <div class="mt-5">
-                    <a href="/users/register" class="btn btn-custom btn-sm btn-round">Join Now</a>
+                    <a href="#" onclick="showPayment(3)" class="btn btn-custom btn-sm btn-round">Pay</a href="#">
                 </div>
             </div>
         </div>
@@ -63,7 +62,7 @@ body {
                         <i class="mdi mdi-checkbox-marked-circle-outline" style="color:#01c853;"></i> Live Grammer Checker<br>
                     </p>
                     <div class="mt-5">
-                        <a href="/users/register" class="btn btn-custom btn-sm btn-round">Join Now</a>
+                        <a href="#" onclick="showPayment(4)" class="btn btn-custom btn-sm btn-round">Pay</a href="#">
                     </div>
                 </div>
             </div>
@@ -82,9 +81,170 @@ body {
                     <i class="mdi mdi-checkbox-marked-circle-outline" style="color:#01c853;"></i> Live Grammer Checker<br>
                 </p>
                 <div class="mt-5">
-                    <a href="/users/register" class="btn btn-secondary btn-sm btn-round">Join Now</a>
+                    <a href="#" onclick="showPayment(2)" class="btn btn-secondary btn-sm btn-round">Pay</a>
                 </div>
             </div>
         </div>
     </div>
+    <br><br>
+    <div id="paymentPlans" style="display: none;">
+        <h1 class="title-heading text-center" id="plan-title" style="font-weight: bolder;"></h1>
+        <div class="sign-up-container">
+            <form action="/processpayment" method="POST" id="payment-form">
+              <input type="hidden" value="0" name="productName"/>
+              <input type="hidden" value="0" name="planId"/>
+              <input type="hidden" value="0" name="planAmount"/>
+              <input type="hidden" value="0" name="planName"/>
+              <input type="hidden" value="0" name="planInterval"/>
+              <input type="hidden" value="0" name="planIntervalCount"/>
+        
+              <label style="font-size: 16px;font-weight: 600;margin-left: 10px;">
+                Name
+              </label>
+              <br>
+              <label style="font-size: 16px;font-weight: 300;margin-left: 10px;">
+                <%= name  %>
+              </label>
+              <br><br>
+              <label style="font-size: 16px;font-weight: 600;margin-left: 10px;">
+                Email Address
+              </label>
+              <br>
+              <label style="font-size: 16px;font-weight: 300;margin-left: 10px;">
+                <%= email  %>
+              </label>
+              <br><br>
+              <div class="form-row">
+                <label for="card-element" style="font-size: 16px;font-weight: 600;margin-left: 10px;">
+                  Credit or debit card
+                </label>
+                <br>
+                <div id="card-element" style="width: 99%;margin: auto;padding: 20px;background: #fff !important;box-shadow: 0px 0px 20px 2px #d3d3d3;border-radius: 10px;border: none;">
+                  <!-- A Stripe Elements instance will be mounted here -->
+                </div>
+        
+                <!-- Any error messages will be mounted here -->
+                <div id="card-errors" role="alert"></div>
+              </div>
+        
+              <input name='payValueBtn' class="btn" type="submit" value="Pay $5.00" style="width: 100%;background-color: #007bff;color: #fff;margin: 30px 0px;"/>
+              <h3 class="text-center" style="font-size: 12px;">Automatic Billing will occur on based on the plan you select. To cancel your subscription just vist ur Settings in the Dashboard.</h3>
+            </form>
+          </div>
+    </div>
 </div>
+
+<script>
+    if (document.getElementById('card-element')) {
+      /* Replace 'pk_test_************************' with your publishable key */
+      var stripe = Stripe('pk_test_oxzBUxjl7hmHoueWW3UOj9YK00LhXbLTQh');
+      var elements = stripe.elements();
+  
+      /* Custom styling can be passed to options when creating an Element */
+      var style = {
+        base: {
+          fontSize: '16px', '::placeholder': { color: "#aab7c4"},
+          fontFamily: '"Open Sans", "Helvetica", sans-serif',
+          fontSmoothing: 'antialiased',
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      };
+  
+      /* Create a Stripe Elements instance 
+        and mount to the div with the id 'card-element' */
+  
+      var card = elements.create('card', {style: style, iconStyle: 'solid'});
+  
+      card.mount('#card-element');
+  
+      /* Handle validation errors */
+      card.addEventListener('change', event => {
+        var displayError = document.getElementById('card-errors');
+        
+        if (event.error) {
+          displayError.textContent = event.error.message;
+        } else {
+          displayError.textContent = ''; 
+        }
+      });
+  
+      /* Create a token when the form is submitted */
+      var form = document.getElementById('payment-form');
+  
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        stripe.createToken(card).then(function(result) {
+          if (result.error) {
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            stripeTokenHandler(result.token);
+          }
+        })
+      });
+    }
+  
+    function stripeTokenHandler(token) {
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+      form.submit();
+    }
+
+
+    function showPayment(planID) {
+        document.getElementById('paymentPlans').style.display = 'block';
+
+        switch(planID){
+            case 1:
+                document.getElementById('plan-title').innerText = 'Plan Selected - Basic $5.00/month';
+                $('input[name="payValueBtn"]').val('Pay $5.00 a month');
+                $('input[name="productName"]').val('Basic Subscription');
+                $('input[name="planId"]').val('1');
+                $('input[name="planAmount"]').val('$5.00');
+                $('input[name="planName"]').val('basic');
+                $('input[name="planInterval"]').val('month');
+                $('input[name="planIntervalCount"]').val('1');
+                break;
+            case 2:
+                document.getElementById('plan-title').innerText = 'Plan Selected - Deluxe $10.00/month';
+                $('input[name="payValueBtn"]').val('Pay $10.00 a month');
+                $('input[name="productName"]').val('Basic Subscription');
+                $('input[name="planId"]').val('2');
+                $('input[name="planAmount"]').val('$5.00');
+                $('input[name="planName"]').val('deluxe');
+                $('input[name="planInterval"]').val('month');
+                $('input[name="planIntervalCount"]').val('1');
+                break;  
+            case 3:
+                document.getElementById('plan-title').innerText = 'Plan Selected - Basic $50.00/year';
+                $('input[name="payValueBtn"]').val('Pay $50.00 a year');
+                $('input[name="productName"]').val('Basic Subscription');
+                $('input[name="planId"]').val('3');
+                $('input[name="planAmount"]').val('$50.00');
+                $('input[name="planName"]').val('basic year');
+                $('input[name="planInterval"]').val('year');
+                $('input[name="planIntervalCount"]').val('1');
+                break;
+            case 4:
+                document.getElementById('plan-title').innerText = 'Plan Selected - Deluxe $100.00/year';
+                $('input[name="payValueBtn"]').val('Pay $100.00 a year');
+                $('input[name="productName"]').val('Basic Subscription');
+                $('input[name="planId"]').val('4');
+                $('input[name="planAmount"]').val('$100.00');
+                $('input[name="planName"]').val('deluxe year');
+                $('input[name="planInterval"]').val('year');
+                $('input[name="planIntervalCount"]').val('1');
+                break;
+            default:
+        }
+    }
+  
+</script>

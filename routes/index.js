@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 
 // Dashboard Page
 router.get('/dashboard', ensureAuthenticated, function(req, res) {
-    if(req.user.payConfirmed){
+    if(req.user.planVer > 0){
         res.render('dashboard', {
             name: req.user.name,
             uni: req.user.uni,
@@ -25,8 +25,9 @@ router.get('/dashboard', ensureAuthenticated, function(req, res) {
     }
 });
 
+// Payment Page
 router.get('/pay', ensureAuthenticated, function(req, res) {
-    res.render('pay', {title: 'Subscription Plans'})
+    res.render('pay', {title: 'Subscription Plans', name:req.user.name, email:req.user.email})
 });
 
 module.exports = router;

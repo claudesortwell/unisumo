@@ -21,9 +21,9 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    payConfirmed: {
-        type: Boolean,
-        default: 0
+    planVer: {
+        type: Number,
+        default: '0'
     }
 });
 
