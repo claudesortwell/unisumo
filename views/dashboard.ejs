@@ -1,6 +1,8 @@
-<!-- <h1 class="mt-4">Dashboard</h1>
-<p class="lead mb-3">Welcome <%= name %> you attend <%= uni %></p>
-<a href="/users/logout" class="btn btn-secondary">Logout</a> -->
+<style>
+.nav-link {
+  padding: 1rem 1rem !important;
+}
+</style>
 
 <div class="d-flex" id="wrapper">
 
@@ -34,23 +36,20 @@
                   <a class="nav-link active" href="">Dark Mode <i class="mdi mdi-weather-night"></i></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><%= name %></a>
-                </li>
-                <li class="nav-item">
-                    <a href="/users/logout" class="btn btn-secondary">Logout</a>
-                </li>
+                <!-- <li class="nav-item">
+                  <a href="/users/logout" class="btn btn-secondary">Logout</a>
+                </li> -->
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    <%= name %>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="/users/logout">Logout</a>
                   </div>
                 </li>
               </ul>
