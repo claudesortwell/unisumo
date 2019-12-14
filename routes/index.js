@@ -13,11 +13,20 @@ router.get('/', function(req, res) {
 
 // Dashboard Page
 router.get('/dashboard', ensureAuthenticated, function(req, res) {
-    res.render('dashboard', {
-        name: req.user.name,
-        uni: req.user.uni,
-        title:'Dashboard'
-    });
+    if(req.user.payConfirmed){
+        res.render('dashboard', {
+            name: req.user.name,
+            uni: req.user.uni,
+            title:'Dashboard'
+        });
+    } else {
+        req.flash('error_msg', 'To access ur dashboard you need to setup ur plan and payment options.');
+        res.redirect('/pay');
+    }
+});
+
+router.get('/pay', ensureAuthenticated, function(req, res) {
+    res.render('pay', {title: 'Subscription Plans'})
 });
 
 module.exports = router;
