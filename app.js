@@ -83,7 +83,7 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
                 console.log(err)
                 return;
             } else {
-                res.redirect('/users/login');
+                res.redirect('/users/logout');
             }
         });
 
