@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'); 
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
@@ -5,6 +6,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const { ensureAuthenticated } = require('./config/auth');
+const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 const STRIPE_API = require('./config/stripe-functions.js');
 
 // Init App
@@ -27,6 +29,17 @@ const User = require('./models/User');
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(express.static("public"))
+
+stripe.subscriptions.retrieve(
+    'sub_GMT3NQHDY87L16',
+    function(err, subscription) {
+        if(err){
+            console.log(err);
+        } else {
+            console.log(subscription.status);
+        }
+    }
+);
 
 // Bodyparser
 app.use(express.urlencoded({extended: false}));
@@ -59,7 +72,8 @@ app.use('/users', require('./routes/users'));
 
 // Processing Stripe Payment
 app.use('/processPayment', ensureAuthenticated, (req, res) => {
-    if(req.body.planId == null){
+    if(req.body.planId == null && req.body.footer != 'cardfooter'){
+        req.flash('error_msg', "Please select card and enter card details.");
         res.redirect('/pay');
         return;
     }
@@ -72,6 +86,9 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
         user.password = req.user.password;
         user.date = req.user.date;
         user.planVer = req.body.planId;
+        user.stripeCusId = stripeCusID;
+        console.log(stripeSubID);
+        user.stripeSubId = stripeSubID;
 
         let query = {_id:req.user._id};
 
@@ -86,7 +103,7 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
 
 
     }).catch(err => {
-        console.log(err);
+        req.flash('error_msg', "Please try again. " + err.message);
         res.redirect('/pay');
     });
 });

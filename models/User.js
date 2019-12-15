@@ -24,6 +24,14 @@ const UserSchema = new mongoose.Schema({
     planVer: {
         type: Number,
         default: '0'
+    },
+    stripeCusId: {
+        type: String,
+        default: ''
+    },
+    stripeSubId: {
+        type: String,
+        default: ''
     }
 });
 
