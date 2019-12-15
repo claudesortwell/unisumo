@@ -1,9 +1,18 @@
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
+const mongoose = require('mongoose');
 
-stripeCusID = '';
-stripeSubID = '';
+// DB Config
+const db = require('./keys').MongoURI;
 
+// Connect to Mongo
+mongoose.connect(db, {useNewUrlParser: true })
+    .then(() => console.log('Stripe mongoDB connected'))
+    .catch(err => console.log(err));
+
+const User = require('../models/User');
+
+// Creating subscription
 function createCustomerAndSubscription(requestBody, user, req) {
     return stripe.customers.create({
       source: requestBody.stripeToken,
@@ -22,8 +31,17 @@ function createCustomerAndSubscription(requestBody, user, req) {
           if(err){
             console.log(err);
           } else {
-            stripeSubID = subscription.id;
-            console.log(subscription.id);
+            // Setting subscription ID in mongodb
+            User.updateOne(
+              {email: user.email},
+              {$set: {stripeSubId: subscription.id, stripeCusId: customer.id}},
+            function(err){
+              if(err){
+                console.log(err);
+              } else {
+                return;
+              }
+            })
           }
         }
       );
@@ -32,7 +50,5 @@ function createCustomerAndSubscription(requestBody, user, req) {
   
   
 module.exports = {
-  createCustomerAndSubscription,
-  stripeSubID,
-  stripeCusID
+  createCustomerAndSubscription
 };

@@ -30,17 +30,6 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(express.static("public"))
 
-stripe.subscriptions.retrieve(
-    'sub_GMT3NQHDY87L16',
-    function(err, subscription) {
-        if(err){
-            console.log(err);
-        } else {
-            console.log(subscription.status);
-        }
-    }
-);
-
 // Bodyparser
 app.use(express.urlencoded({extended: false}));
 
@@ -86,9 +75,6 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
         user.password = req.user.password;
         user.date = req.user.date;
         user.planVer = req.body.planId;
-        user.stripeCusId = stripeCusID;
-        console.log(stripeSubID);
-        user.stripeSubId = stripeSubID;
 
         let query = {_id:req.user._id};
 
@@ -97,7 +83,7 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
                 console.log(err)
                 return;
             } else {
-                res.redirect('/dashboard');
+                res.redirect('/users/login');
             }
         });
 
