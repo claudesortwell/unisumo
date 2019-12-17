@@ -10,8 +10,6 @@ mongoose.connect(db, {useNewUrlParser: true })
     .then(() => console.log('Stripe mongoDB connected'))
     .catch(err => console.log(err));
 
-const User = require('../models/User');
-
 // Creating subscription
 function createCustomerAndSubscription(requestBody, user, req) {
     return stripe.customers.create({

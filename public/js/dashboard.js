@@ -1,4 +1,5 @@
-$("#menu-toggle").click(function(e) {
-  e.preventDefault();
+function menuToggle() {
+  $('#menu-hide').toggle();
+  $('#menu-show').toggle();
   $("#wrapper").toggleClass("toggled");
-});
+}

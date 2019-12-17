@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
+const mongoose = require('mongoose');
+
+mongoose.connect(db, {useNewUrlParser: true })
+    .then(() => console.log('MongoDB Connected from index.js...'))
+    .catch(err => console.log(err));
 
 // Welcome Page
 router.get('/', function(req, res) {
@@ -26,6 +31,7 @@ router.get('/dashboard', ensureAuthenticated, function(req, res) {
                     case 'active':
                         res.render('dashboard', {
                             name: req.user.name,
+                            darkmode: req.user.darkMode,
                             uni: req.user.uni,
                             title:'Dashboard'
                         });
@@ -51,6 +57,24 @@ router.get('/dashboard', ensureAuthenticated, function(req, res) {
 // Payment Page
 router.get('/pay', ensureAuthenticated, function(req, res) {
     res.render('pay', {title: 'Subscription Plans', name:req.user.name, email:req.user.email})
+});
+
+router.get('/darkmode', ensureAuthenticated, function(req, res) {
+    var tempDark = false;
+    if(req.user.darkMode != true) {
+        tempDark = true;
+    }
+
+    User.updateOne(
+        {email: req.user.email},
+        {$set: {darkMode: tempDark}},
+      function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect('back');   
+        }
+    });
 });
 
 module.exports = router;

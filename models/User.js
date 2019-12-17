@@ -21,6 +21,10 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    darkMode: {
+        type: Boolean,
+        default: 0
+    },
     planVer: {
         type: Number,
         default: '0'

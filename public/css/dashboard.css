@@ -1061,3 +1061,16 @@ body.my-login-page {
 		padding: 15px;
 	}
 }
+
+.bg-dark {
+  background-color: #343a40 !important;
+  color: #fff  !important;
+}
+
+.dark-border {
+  border-color: #292929 !important;
+}
+
+.dark-container {
+  background-color: #343a40f5!important;
+}
