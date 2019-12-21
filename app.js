@@ -23,7 +23,9 @@ mongoose.connect(db, {useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
+// Pulling in models
 User = require('./models/User');
+Subject = require('./models/Subject')
 
 // EJS
 app.use(expressLayouts);
@@ -94,6 +96,7 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
     });
 });
 
+// If page not found
 app.use('*', (req, res) => {
     if(req.isAuthenticated()) {
         res.render('404', {title: 'Page not found 404', auth: 'yes'});
@@ -101,6 +104,7 @@ app.use('*', (req, res) => {
         res.render('404', {title: 'Page not found 404', auth: 'no'});
     }
 });
+
 
 const PORT = process.env.PORT || 5000;
 

@@ -49,14 +49,14 @@
 
                       <div class="container">
                         <div class="row">
-                          <div class="col-sm">
-                            <span id="uni-radio-selection" class="unileft" onclick="radioSelect('MQU', this)"><input type="radio" id="MQU" name="uni" value="MQU"><img style="width:100%;" src="/img/unilogos/mqu.png"><label style="color: black">Macquarie<br>University</label></span>
+                          <div id="uni-radio-selection" class="col-sm unileft" onclick="radioSelect('MQU', this)">
+                            <input type="radio" id="MQU" name="uni" value="MQU" style="opacity: 0;"><img style="width:100%;" src="/img/unilogos/mqu.png"><label class="text-center" style="color: black">Macquarie<br>University</label>
                           </div>
-                          <div class="col-sm">
-                            <span id="uni-radio-selection" class="unileft" onclick="radioSelect('OTHER', this)"><input type="radio" id="OTHER" name="uni" value="OTHER"><img style="width:100%;" src="/img/unilogos/mqu.png"><label style="color: black">Macquarie<br>University</label></span>
+                          <div id="uni-radio-selection1" class="col-sm unileft" onclick="radioSelect('OTHER', this)">
+                            <input type="radio" id="OTHER" name="uni" value="OTHER" style="opacity: 0;"><img style="width:100%;" src="/img/unilogos/other.png"><label class="text-center" style="color: black">Other<br>University</label>
                           </div>
-                          <div class="col-sm">
-                            <span id="uni-radio-selection" class="unileft" onclick="radioSelect('NONE', this)"><input type="radio" id="NONE" name="uni" value="NONE"><img style="width:100%;" src="/img/unilogos/mqu.png"><label style="color: black">Macquarie<br>University</label></span>
+                          <div id="uni-radio-selection2" class="col-sm unileft" onclick="radioSelect('NONE', this)">
+                            <input type="radio" id="NONE" name="uni" value="NONE" style="opacity: 0;"><img style="width:100%;" src="/img/unilogos/non.png"><label class="text-center" style="color: black">No Uni<br>University</label>
                           </div>
                         </div>
                       </div>
@@ -132,7 +132,9 @@
 <script>
   function radioSelect(choice, span) {
     document.getElementById(choice).checked = true;
-    $('#uni-selection > span').removeClass('checked');
-    $(span).addClass('checked');
+    $('#uni-radio-selection').removeClass('radio_checked');
+    $('#uni-radio-selection1').removeClass('radio_checked');
+    $('#uni-radio-selection2').removeClass('radio_checked');
+    $(span).addClass('radio_checked');
   }
 </script> -->

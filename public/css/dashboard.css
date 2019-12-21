@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,600");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700,900");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
 
 body {
   font-family: "Work Sans", sans-serif;
@@ -956,7 +957,7 @@ body {
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 1.3rem 3.5rem;
+  padding: 1.3rem 3rem;
   font-size: 1.2rem;
 }
 
@@ -1068,9 +1069,91 @@ body.my-login-page {
 }
 
 .dark-border {
-  border-color: #292929 !important;
+  border-color: rgba(0, 0, 0, 0.125) !important;
 }
 
 .dark-container {
   background-color: #343a40f5!important;
+}
+
+.sidebar-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 25px 0px 0px 0px;
+  padding: 0px 0px 20px 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.med-font {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.list-group-item {
+  padding: 1.25rem 1.25rem;
+}
+
+#uni-selection div {
+  transition: all 0.2s ease-in-out;
+}
+
+.radio_checked {
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px #007bff;
+}
+
+.hide-radio {
+  display: none;
+}
+
+.modal-icon-choice-center {
+  font-size: 42px;
+  position: relative;
+}
+
+.icon-radio {
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.icon-radio-select {
+  border: 2px solid #2196f3;
+  box-shadow: 0px 0px 15px 0px #2196f3;
+}
+
+.radio-color {
+  padding: 12px 0px;
+  border-radius: 40px;
+  font-weight: 600;
+  width: 62px;
+}
+
+.red-option {
+  background-color: red;
+}
+
+.blue-option {
+  background-color: #2196f3;
+}
+
+.green-option {
+  background-color: green;
+}
+
+.orange-option {
+  background-color: orange;
+}
+
+.purple-option {
+  background-color: purple;
+}
+
+.alerts-center {
+  position: absolute;
+  z-index: 10;
+  margin: 0 calc(50% - 250px);
+  top: 15px;
+  width: 500px;
 }
