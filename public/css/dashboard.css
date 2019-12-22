@@ -1157,3 +1157,55 @@ body.my-login-page {
   top: 15px;
   width: 500px;
 }
+
+.light-text {
+  color: #fff;
+}
+
+.dark-text {
+  color: #495057;
+}
+
+.main-cont-dash {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.navbar-top-stick {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.navbar-side-stick {
+  display: table;
+}
+
+.modal-backdrop {
+  position:unset !important;
+}
+
+.modal {
+  top: 70px;
+  background-color: #00000085;
+}
+
+.preloader {
+  z-index: 10000;
+  height: 100vh;
+  width: 100vw;
+  display: inherit;
+  position: absolute;
+}
+
+.card {
+  margin: 20px 0px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 0px #cacaca;
+}
+
+.dark-box-shadow {
+  box-shadow: 0px 0px 15px 0px #272727;
+}

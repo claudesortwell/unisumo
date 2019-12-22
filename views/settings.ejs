@@ -1,0 +1,81 @@
+<h1 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="font-weight: 600;font-size: 35px;">Settings</h1>
+
+<hr>
+
+<div style="padding-left: 30px;">
+    <h5 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>">Profile Details</h5>
+    <form action="/dashboard/updateuser" method="post" style="padding-top: 20px;">
+
+        <div class="form-group">
+            <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-human-child"></i> Name &nbsp;</label><input class="form-control" name="name" type="text" value="<%= name %>" required>
+        </div>
+
+        <div class="form-group">
+            <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-email"></i> Email &nbsp;</label><input class="form-control" name="email" type="email" value="<%= email %>" required>
+        </div>
+
+        <div class="form-group">
+            <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-school"></i> Uni &nbsp;</label>
+            <select name="uni" class="form-control" id="exampleFormControlSelect1" required>
+                <option value="MQU" <% if(uni == 'MQU'){%> selected <%}%>>Macquarie University</option>
+                <option value="NONE" <% if(uni == 'NONE'){%> selected <%}%>>No University</option>
+                <option value="OTHER" <% if(uni == 'OTHER'){%> selected <%}%>>Other</option>
+            </select>
+        </div>
+       
+        <button type="submit" value="" class="btn btn-primary" style="margin-top: 20px;"><i class="mdi mdi-content-save"></i> Save Details</button>
+    </form>
+</div>
+
+<br>
+<hr>
+
+<% if(subjects != 'undefined') { %>
+    <% var index = 0 %>
+    <% subjects.forEach(function(subject) { %>
+        <br>
+        <div style="padding-left: 30px;">
+            <h5 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>">Subject <%= subject.name %> Details</h5>
+            <form action="/dashboard/updatesubject/<%= subject._id %>" method="post" style="padding-top: 20px;">
+
+                <div class="form-group">
+                    <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-tag-outline"></i> Subject Name &nbsp;</label><input class="form-control" name="name" type="text" value="<%= subject.name %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-school"></i> Icon &nbsp;</label>
+                    <select name="icon" class="form-control" id="exampleFormControlSelect1" style="font-family: 'Material Design Icons', sans-serif;" required>
+                        <option value="mdi mdi-beaker-outline" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-beaker-outline'){%> selected <%}%>>&#xF68F;</option>
+                        <option value="mdi mdi-draw" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-draw'){%> selected <%}%>>&#xFF66;</option>
+                        <option value="mdi mdi-drama-masks" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-drama-masks'){%> selected <%}%>>&#xFCDE;</option>
+                        <option value="mdi mdi-calculator-variant" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-calculator-variant'){%> selected <%}%>>&#xFA99;</option>
+                        <option value="mdi mdi-code-braces-box" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-code-braces-box'){%> selected <%}%>>&#xF0101;</option>
+                        <option value="mdi mdi-newspaper" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-newspaper'){%> selected <%}%>>&#xF395;</option>
+                        <option value="mdi mdi-cash" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-cash'){%> selected <%}%>>&#xF114;</option>
+                        <option value="mdi mdi-toy-brick-outline" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-toy-brick-outline'){%> selected <%}%>>&#xF02B8;</option>
+                        <option value="mdi mdi-laptop" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-laptop'){%> selected <%}%>>&#xF322;</option>
+                        <option value="mdi mdi-emoticon-happy-outline" style="font-family: 'Material Design Icons', sans-serif;" <% if(subject.icon == 'mdi mdi-emoticon-happy-outline'){%> selected <%}%>>&#xF1F5;</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" for=""><i class="mdi mdi-school"></i> Colour &nbsp;</label>
+                    <select name="colour" class="form-control" id="exampleFormControlSelect1" required>
+                        <option value="#ff4d4d" style="color: #ff4d4d;" <% if(subject.color == '#ff4d4d'){%> selected <%}%>>Red</option>
+                        <option value="#33cc33" style="color: #33cc33;" <% if(subject.color == '#33cc33'){%> selected <%}%>>Green</option>
+                        <option value="#007bff" style="color: #007bff;" <% if(subject.color == '#007bff'){%> selected <%}%>>Blue</option>
+                        <option value="#ff9900" style="color: #ff9900;" <% if(subject.color == '#ff9900'){%> selected <%}%>>Orange</option>
+                        <option value="#cc00ff" style="color: #cc00ff;" <% if(subject.color == '#cc00ff'){%> selected <%}%>>Purple</option>
+                    </select>
+                </div>
+            
+                <button type="submit" value="" class="btn btn-primary" style="margin-top: 20px;"><i class="mdi mdi-content-save"></i> Save Subject Details</button>
+                <a onclick="deleteSubModal('<%= subject._id %>')" class="btn btn-danger" style="border:none; color: #fff !important; margin-top: 20px; margin-left: 10px;"><i class="mdi mdi-delete"></i> Delete Subject</a>
+            </form>
+
+            
+        </div>
+        <% index ++ %>
+    <% }); %>
+<% } %> 
+

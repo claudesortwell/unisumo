@@ -32,14 +32,16 @@ router.get('/dashboard', ensureAuthenticated, function(req, res) {
                         Subject.find({ownedUser: req.user._id})
                             .then(subject => {
                                 if(!subject) {
-                                    res.render('dashboard', {
+                                    res.render('home', {
+                                        layout: 'dashboardlayout',
                                         name: req.user.name,
                                         darkmode: req.user.darkMode,
                                         uni: req.user.uni,
                                         title:'Dashboard'
                                     });
                                 } else { 
-                                    res.render('dashboard', {
+                                    res.render('home', {
+                                        layout: 'dashboardlayout',
                                         name: req.user.name,
                                         darkmode: req.user.darkMode,
                                         uni: req.user.uni,
@@ -92,12 +94,98 @@ router.post('/addsub', ensureAuthenticated, (req, res) => {
         newSubject.save()
             .then(subject => {
                 req.flash('success_msg', 'Subject created successfully');
-                res.redirect('/dashboard');
+                res.redirect('back'); 
             })
             .catch(err => console.log(err));
     }
 
 });
+ 
+// Remove a subject (permanently)
+router.get('/removesub/:id', ensureAuthenticated, function(req, res) {
+
+    var subjectId = req.params.id;
+    Subject.deleteOne({_id:subjectId, ownedUser:req.user._id}, function(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+    });
+
+    req.flash('success_msg', 'Subject was deleted sucessfully if you owned it.');
+    res.redirect('back'); 
+    
+});
+
+// Settings Page 
+router.get('/dashboard/settings', ensureAuthenticated, function(req, res) {
+    Subject.find({ownedUser: req.user._id})
+        .then(subject => {
+            if(!subject) {
+                res.render('settings', {
+                    layout: 'dashboardlayout',
+                    name: req.user.name,
+                    email: req.user.email,
+                    uni: req.user.uni,
+                    darkmode: req.user.darkMode,
+                    title:'settings'
+                });
+            } else { 
+                res.render('settings', {
+                    layout: 'dashboardlayout',
+                    email: req.user.email,
+                    uni: req.user.uni,
+                    name: req.user.name,
+                    darkmode: req.user.darkMode,
+                    subjects: subject, 
+                    title:'settings'
+                });
+            }
+        })
+        .catch(err => console.log(err));
+});
+
+// Update user
+router.post('/dashboard/updateuser', ensureAuthenticated, function(req, res) {
+    let user = {};
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.uni = req.body.uni;
+
+    let query = {_id: req.user._id};
+
+    User.updateOne(query, user, function(err) {
+        if(err) {
+            console.log(err)
+        } else {
+            req.flash('success_msg', 'Details updated sucessfully');
+            res.redirect('/dashboard/settings');
+        }
+    });
+});
+
+// Update subject details
+router.post('/dashboard/updatesubject/:id', ensureAuthenticated, function(req, res) {
+    let subject = {};
+
+    subject.name = req.body.name;
+    subject.icon = req.body.icon;
+    subject.color = req.body.colour;
+
+    let query = {_id: req.params.id, ownedUser:req.user._id};
+
+    Subject.updateOne(query, subject, function(err) {
+        if(err) {
+            console.log(err)
+        } else {
+            console.log(subject.colour);
+            req.flash('success_msg', 'Subject updated sucessfully');
+            res.redirect('/dashboard/settings');
+        }
+    });
+});
+
 
 // Enable dark mode
 router.get('/darkmode', ensureAuthenticated, function(req, res) {

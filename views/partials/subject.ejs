@@ -1,13 +1,14 @@
 <% if(subjects != 'undefined') { %>
     <% var index = 0 %>
     <% subjects.forEach(function(subject) { %>
-        <a href="#" id="test" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="color: <%= subject.color %> !important;" onclick="dropdownSubject('<%= index %>')"><i class="<%= subject.icon %>" ></i> &nbsp;<%= subject.name %> <i class="mdi mdi-menu-down text-right"></i></a>
+        <a href="#" id="test" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="color: <%= subject.color %> !important;" onclick="dropdownSubject('<%= index %>')"><i class="<%= subject.icon %>" ></i> &nbsp;<%= subject.name %> <i class="mdi mdi-menu-down text-right" style="position: absolute;right: 20px;"></i></a>
         <div id="<%= index %>" class="subject-dropdown" style="display: none;">
             <a href="" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none;"><i class="mdi mdi-view-quilt"></i> Overview</a>
             <a href="" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none;"><i class="mdi mdi-file-multiple"></i> Files</a>
             <a href="" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none;"><i class="mdi mdi-format-list-bulleted"></i> Notes</a>
             <a href="" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none;"><i class="mdi mdi-calendar-clock"></i> Important Dates</a>
             <a href="" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none;"><i class="mdi mdi-plus-circle-outline"></i> New File</a>
+            <a href="#" onclick="deleteSubModal('<%= subject._id %>')" class="px-5 py-3 list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border:none; color: red !important;"><i class="mdi mdi-delete"></i> Delete Subject</a>
         </div>
         <% index ++ %>
     <% }); %>

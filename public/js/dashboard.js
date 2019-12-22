@@ -27,3 +27,20 @@ function radioColorSelect(choice, item) {
 
   $(item).addClass('icon-radio-select');
 }
+
+function deleteSubModal(subjectId) {
+  $('#deleteSub').modal('show');
+  document.getElementById('deleteSubModalLink').href = "/removesub/" + subjectId;
+}
+
+function showPage(page) {
+  $('iframe').hide();
+
+  $('#' + page).show();
+}
+
+function settingsPage() {
+  $('iframe').hide();
+  $('#iframeMain').show();
+  document.getElementById('iframeMain').src = "/settings";
+}

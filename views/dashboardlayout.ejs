@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="../css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.easing.min.js"></script>
+    <script src="../js/scrollspy.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <link rel="icon" type="image/png" href="../img/ico/main.png">
+    <link rel="icon" type="image/png" href="../img/ico/main.ico">
+    <title>Unisumo | <%= (typeof title != "undefined" ? title : "") %></title>
+</head>
+
+<style>
+.nav-link {
+  padding: 1rem 1rem !important;
+}
+
+#test:focus {
+  background: none;
+}
+
+.subject-dropdown a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+</style>
+
+<body>
+<div class="d-flex" id="wrapper">
+
+        <div id="loading" class="preloader <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
+          <?xml version="1.0" encoding="utf-8"?>
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="197px" height="197px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+          <circle cx="50" cy="50" r="29" stroke-width="4" stroke="#0080ff" stroke-dasharray="45.553093477052 45.553093477052" fill="none" stroke-linecap="round" transform="rotate(337.163 50 50)">
+            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+          </circle>
+          </svg>
+          <h4 class="text-center <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="margin: auto;">Unisumo is loading....</h4>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="navbar-side-stick navbar-top-stick <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %> border-right" id="sidebar-wrapper">
+          <div class="sidebar-heading">
+            <% if(darkmode == true) { %>
+              <img src="../img/svg/logotextwhite.svg" alt="">
+            <% } else { %>
+              <img src="../img/svg/logotextblack.svg" alt="">
+            <% } %>
+          </div>
+          <div class="list-group list-group-flush <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
+            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
+            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-folder"></i> &nbsp;My Drive</a>
+            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-pencil"></i> &nbsp;SumoCreate</a>
+            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-school"></i> &nbsp;University Apps</a>
+            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-email"></i> &nbsp;Email</a>
+
+            <h4 class="text-center sidebar-title bg_dark dark-border">My Subjects</h4>
+
+            <% include ./partials/subject %>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSubModal" style="margin: 25px;border-radius: 0px;">
+              <i class="mdi mdi-plus-circle-outline"></i>
+              Add a Subject
+            </button>
+
+          </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <div class="alerts-center">
+          <% include ./partials/messages %>
+        </div>
+
+        <!-- Page Content -->
+        <div class=" <% if(darkmode == true){%> dark-container <%}%>" id="page-content-wrapper">
+    
+          <nav class="navbar navbar-expand-lg navbar-light navbar-top-stick <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %> border-bottom" data-spy="affix"> 
+            <button class="btn btn-primary" onclick="menuToggle()" id="menu-hide">Hide <i class="mdi mdi-format-indent-decrease"></i></button>
+            <button class="btn btn-primary" onclick="menuToggle()" id="menu-show" style="display: none;">Show <i class="mdi mdi-format-indent-increase"></i></button>
+    
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <% if(darkmode == true) { %>
+                    <a class="nav-link active bg-dark" href="/darkmode">Light Mode <i class="mdi mdi-weather-sunny"></i></a>
+                  <% } else { %>
+                    <a class="nav-link active bg-light" href="/darkmode">Dark Mode <i class="mdi mdi-weather-night"></i></a>
+                  <% } %>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="#" >Home <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a href="/users/logout" class="btn btn-secondary">Logout</a>
+                </li> -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= name %>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="/dashboard/settings">Settings</a>
+                    <a class="dropdown-item <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="#">Another action</a>
+                    <div class="dropdown-divider <% if(darkmode == true){%> dark-border <%}%>"></div>
+                    <a class="dropdown-item <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="/users/logout">Logout</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    
+          <div class="container-fluid main-cont-dash">
+            <%- body %>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade " id="addSubModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+              <div class="modal-header <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+                <h5 class="modal-title" id="exampleModalLabel">Add a new Subject</h5>
+                <button type="button" class="close <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body">
+                <form action="/addsub" method="POST">
+                  <div class="form-group">
+                    <label for="name"><i class="mdi mdi-tag-outline"></i> Subject Name</label>
+                    <input
+                      type="name"
+                      id="name"
+                      name="name"
+                      class="form-control"
+                      placeholder="Subject Name"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      What's the subject name?
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="name"><i class="mdi mdi-image-area"></i> Subject Icon</label>
+
+                    <div class="container text-center" style="margin-top: 20px;">
+                      <div class="row">
+                        <div class="col-sm icon-radio" id="icon-radio0" onclick="radioSelect('science', this)">
+                          <i class="mdi mdi-beaker-outline modal-icon-choice-center"></i>
+                          <input type="radio" id="science" name="icon" value="mdi mdi-beaker-outline" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio1" onclick="radioSelect('draw', this)">
+                          <i class="mdi mdi-draw modal-icon-choice-center"></i>
+                          <input type="radio" id="draw" name="icon" value="mdi mdi-draw" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio2" onclick="radioSelect('drama', this)">
+                          <i class="mdi mdi-drama-masks modal-icon-choice-center"></i>
+                          <input type="radio" id="drama" name="icon" value="mdi mdi-drama-masks" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio3" onclick="radioSelect('math', this)">
+                          <i class="mdi mdi-calculator-variant modal-icon-choice-center"></i>
+                          <input type="radio" id="math" name="icon" value="mdi mdi-calculator-variant" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio4" onclick="radioSelect('code', this)">
+                          <i class="mdi mdi-code-braces-box modal-icon-choice-center"></i>
+                          <input type="radio" id="code" name="icon" value="mdi mdi-code-braces-box" class="form-control hide-radio"/>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm icon-radio" id="icon-radio5" onclick="radioSelect('news', this)">
+                          <i class="mdi mdi-newspaper modal-icon-choice-center"></i>
+                          <input type="radio" id="news" name="icon" value="mdi mdi-newspaper" class="form-control hide-radio"/>
+                        </div> 
+                        <div class="col-sm icon-radio" id="icon-radio6" onclick="radioSelect('money', this)">
+                          <i class="mdi mdi-cash modal-icon-choice-center"></i>
+                          <input type="radio" id="money" name="icon" value="mdi mdi-cash" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio7" onclick="radioSelect('brick', this)">
+                          <i class="mdi mdi-toy-brick-outline modal-icon-choice-center"></i>
+                          <input type="radio" id="brick" name="icon" value="mdi mdi-toy-brick-outline" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio8" onclick="radioSelect('computer', this)">
+                          <i class="mdi mdi-laptop modal-icon-choice-center"></i>
+                          <input type="radio" id="computer" name="icon" value="mdi mdi-laptop" class="form-control hide-radio"/>
+                        </div>
+                        <div class="col-sm icon-radio" id="icon-radio9" onclick="radioSelect('happy', this)">
+                          <i class="mdi mdi-emoticon-happy-outline modal-icon-choice-center"></i>
+                          <input type="radio" id="happy" name="icon" value="mdi mdi-emoticon-happy-outline" class="form-control hide-radio"/>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="invalid-feedback">
+                      What's icon would you like for the subject?
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="name"><i class="mdi mdi-format-color-fill"></i> Subject Colour</label>
+                    
+                    <div class="container text-center" style="margin-top: 20px;">
+                      <div class="row">
+                        <div class="col-sm"><label class="radio-color red-option" id="icon-radio-color0" onclick="radioColorSelect('red', this)" for="" style="color: #fff !important">Red</label><input type="radio" id="red" name="color" value="#ff4d4d" class="form-control hide-radio"/></div>
+                        <div class="col-sm"><label class="radio-color green-option" id="icon-radio-color1" onclick="radioColorSelect('green', this)" for="" style="color: #fff !important">Green</label><input type="radio" id="green" name="color" value="#33cc33" class="form-control hide-radio"/></div>
+                        <div class="col-sm"><label class="radio-color blue-option" id="icon-radio-color2" onclick="radioColorSelect('blue', this)" for="" style="color: #fff !important">Blue</label><input type="radio" id="blue" name="color" value="#007bff" class="form-control hide-radio"/></div>
+                        <div class="col-sm"><label class="radio-color orange-option" id="icon-radio-color3" onclick="radioColorSelect('orange', this)" for="" style="color: #fff !important">Orange</label><input type="radio" id="orange" name="color" value="#ff9900" class="form-control hide-radio"/></div>
+                        <div class="col-sm"><label class="radio-color purple-option" id="icon-radio-color4" onclick="radioColorSelect('purple', this)" for="" style="color: #fff !important">Purple</label><input type="radio" id="purple" name="color" value="#cc00ff" class="form-control hide-radio"/></div>
+                      </div>
+                    </div>
+
+                    <div class="invalid-feedback">
+                      Please set a subject color
+                    </div>
+                  </div>
+
+                  <div class="modal-footer <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>" style="padding-bottom: 0;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade " id="deleteSub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+              <div class="modal-header <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Subject</h5>
+                <button type="button" class="close <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body">
+                Are you sure you want to delete this subject? This will delete the subject and everything related to it permanently and you wont be able to recover it.
+              </div>
+
+              <div class="modal-footer <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a type="" id="deleteSubModalLink" class="btn btn-danger" href="">Delete subject</a>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <script src="../js/dashboard.js"></script>
+
+        <script>
+          $(window).on('load', function(){ 
+            $('#loading').hide();
+          });
+
+          $(document).ready(function() {
+            radioSelect('science', '#icon-radio0');
+            radioColorSelect('red', '#icon-radio-color0');
+          });
+        </script>
+    
+      </div>
+<body>
