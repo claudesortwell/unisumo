@@ -3,6 +3,7 @@
 <hr>
 
 <div style="padding-left: 30px;">
+    <br>
     <h5 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>">Profile Details</h5>
     <form action="/dashboard/updateuser" method="post" style="padding-top: 20px;">
 
@@ -33,9 +34,9 @@
 <% if(subjects != 'undefined') { %>
     <% var index = 0 %>
     <% subjects.forEach(function(subject) { %>
-        <br>
+        <br><br>
         <div style="padding-left: 30px;">
-            <h5 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>">Subject <%= subject.name %> Details</h5>
+            <h5 class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>"> <%= subject.name %> - Subject Details</h5>
             <form action="/dashboard/updatesubject/<%= subject._id %>" method="post" style="padding-top: 20px;">
 
                 <div class="form-group">
