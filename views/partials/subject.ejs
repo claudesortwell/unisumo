@@ -1,4 +1,4 @@
-<% if(subjects != 'undefined') { %>
+<% if(subjects != null) { %>
     <% var index = 0 %>
     <% subjects.forEach(function(subject) { %>
         <a href="#" id="test" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="color: <%= subject.color %> !important;" onclick="dropdownSubject('<%= index %>')"><i class="<%= subject.icon %>" ></i> &nbsp;<%= subject.name %> <i class="mdi mdi-menu-down text-right" style="position: absolute;right: 20px;"></i></a>

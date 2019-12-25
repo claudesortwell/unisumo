@@ -14,6 +14,12 @@ page[size="A4"]:contenteditable {
   width: 21cm;
   height: 29.7cm; 
 }
+
+.doc-nav a {
+    font-size: 22px;
+    padding: 5px 10px !important;
+    border-radius: 5px;
+}
 </style>
 
 <h1 contenteditable="true" id="documentTitle" class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="font-weight: 600;font-size: 35px;display: inline-block;"><% if(document.docName != ""){%> <%= document.docName %> <%}else{%> New Document <% } %></h1>
@@ -22,15 +28,82 @@ page[size="A4"]:contenteditable {
 <button type="submit" class="btn btn-primary float-right" id="savebtn"><i class="mdi mdi-content-save"></i> Save</button>
 <button class="btn btn-primary float-right" id="cmd" style="margin-right: 10px;"><i class="mdi mdi-file-pdf"></i> Download as PDF</button>
 <hr>
- 
-<form action="" id="docTextForm" method="post"></form>
-    <page id="docTextArea" contenteditable="true" size="A4">
-        <%= document.docText %>
-    </page>
-    <div name="text" id="doc1TextArea" contenteditable="true">
-        <%= document.docText %>
-    </div>
-</form>
+
+<nav class="navbar navbar-expand-lg navbar-top-stick <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="top: 68px;border-radius: 0px 0px 10px 10px;border-top: 1px solid #343a40;">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav doc-nav mr-auto">
+            <li class="nav-item active bg-dark">
+                <a title="Undo" class="nav-link bg-dark" href="#"><i class="mdi mdi-undo"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a title="Redo" class="nav-link bg-dark" href="#"><i class="mdi mdi-redo"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a title="Print" class="nav-link bg-dark" href="#"><i class="mdi mdi-printer"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a class="nav-link bg-dark" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a class="nav-link bg-dark" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            </li>
+        </ul>
+
+        <div class="nav-item active bg-dark dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Download Document
+              </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+      </div>
+</nav>
+<br>
+
+<page id="docTextArea" contenteditable="true" size="A4">
+    <%- document.docText %>
+</page>
+<page id="docTextArea" contenteditable="true" size="A4">
+    <%- document.docText %>
+</page>
+
+<nav class="navbar navbar-expand-lg navbar-top-stick <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border-radius: 10px 10px 0px 0px;border-top: 1px solid #343a40;bottom: 0;">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav doc-nav mr-auto">
+            <li class="nav-item active bg-dark">
+                <a title="Undo" class="nav-link bg-dark" href="#"><i class="mdi mdi-undo"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a title="Redo" class="nav-link bg-dark" href="#"><i class="mdi mdi-redo"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a title="Print" class="nav-link bg-dark" href="#"><i class="mdi mdi-printer"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a class="nav-link bg-dark" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            </li>
+            <li class="nav-item active bg-dark">
+                <a class="nav-link bg-dark" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            </li>
+        </ul>
+
+        <div class="nav-item active bg-dark dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Download Document
+              </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+      </div>
+</nav>
 
 <input hidden id="secretIdValue" value="<%= document._id %>"></input>
 

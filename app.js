@@ -61,6 +61,7 @@ app.use((req, res, next) =>{
 
 // Routes
 app.use('/', require('./routes/index'));
+app.use('/doc', require('./routes/doc'));
 app.use('/users', require('./routes/users'));
 
 // Processing Stripe Payment

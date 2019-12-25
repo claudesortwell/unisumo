@@ -1177,6 +1177,7 @@ body.my-login-page {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 10000;
 }
 
 .navbar-side-stick {
@@ -1208,4 +1209,10 @@ body.my-login-page {
 
 .dark-box-shadow {
   box-shadow: 0px 0px 15px 0px #272727;
+}
+
+.dropdown .dropdown-menu{animation-name: example; animation-duration: 1s;}
+@keyframes example {
+    from {opacity:0}
+    to {opacity:1;}
 }
