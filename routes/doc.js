@@ -84,6 +84,8 @@ router.post('/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res)
             console.log("Successfully Written to File.");
         });
     }
+
+    req.flash('success_msg', 'Subject updated sucessfully');
 });
 
 module.exports = router;
