@@ -26,6 +26,7 @@ mongoose.connect(db, {useNewUrlParser: true })
 // Pulling in models
 User = require('./models/User');
 Subject = require('./models/Subject')
+Document = require('./models/Document');
 
 // EJS
 app.use(expressLayouts);

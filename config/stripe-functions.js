@@ -1,14 +1,5 @@
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
-const mongoose = require('mongoose');
-
-// DB Config
-const db = require('./keys').MongoURI;
-
-// Connect to Mongo
-mongoose.connect(db, {useNewUrlParser: true })
-    .then(() => console.log('Stripe mongoDB connected'))
-    .catch(err => console.log(err));
 
 // Creating subscription
 function createCustomerAndSubscription(requestBody, user, req) {

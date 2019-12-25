@@ -1,2 +1,7 @@
 node_modules/
 .env
+# exclude everything
+sumodocs/*
+
+# exception to the rule
+!sumodocs/.gitkeep

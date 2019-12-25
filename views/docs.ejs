@@ -1,0 +1,56 @@
+<style>
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 210mm;
+  height: 297mm; 
+}
+page[size="A4"]:contenteditable {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+</style>
+
+<h1 contenteditable="true" id="documentTitle" class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="font-weight: 600;font-size: 35px;display: inline-block;"><% if(document.docName != ""){%> <%= document.docName %> <%}else{%> New Document <% } %></h1>
+<p class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="display: inline-block;"> &nbsp;  Last saved: 2 Days ago</p>
+
+<button type="submit" class="btn btn-primary float-right" id="savebtn"><i class="mdi mdi-content-save"></i> Save</button>
+<button class="btn btn-primary float-right" id="cmd" style="margin-right: 10px;"><i class="mdi mdi-file-pdf"></i> Download as PDF</button>
+<hr>
+ 
+<form action="" id="docTextForm" method="post"></form>
+    <page id="docTextArea" contenteditable="true" size="A4">
+        <%= document.docText %>
+    </page>
+    <div name="text" id="doc1TextArea" contenteditable="true">
+        <%= document.docText %>
+    </div>
+</form>
+
+<input hidden id="secretIdValue" value="<%= document._id %>"></input>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js">
+</script>
+
+<script>
+    var doc = new jsPDF('p','mm',[210, 297]);
+
+    $('#cmd').click(function () {
+        var filename = document.getElementById('documentTitle').innerHTML;
+        doc.fromHTML($('#docTextArea').html(), 10, 10);
+        doc.save(filename + '.pdf'); 
+    });
+
+    $('#savebtn').unbind().click(function() {
+        $.post('/dashboard/savedoc', {
+            docId: document.getElementById('secretIdValue').value,
+            docName: document.getElementById('documentTitle').innerText,
+            docText: document.getElementById('docTextArea').innerHTML
+        })
+    });
+</script>

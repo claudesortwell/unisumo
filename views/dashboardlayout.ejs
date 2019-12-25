@@ -52,14 +52,15 @@
         <div class="navbar-side-stick navbar-top-stick <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %> border-right" id="sidebar-wrapper">
           <div class="sidebar-heading">
             <% if(darkmode == true) { %>
-              <img src="../img/svg/logotextwhite.svg" alt="">
+              <a href="/dashboard"><img src="../img/svg/logotextwhite.svg" alt=""></a>
             <% } else { %>
-              <img src="../img/svg/logotextblack.svg" alt="">
+              <a href="/dashboard"><img src="../img/svg/logotextblack.svg" alt=""></a>
             <% } %>
           </div>
           <div class="list-group list-group-flush <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
+            <a href="/dashboard" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
             <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-folder"></i> &nbsp;My Drive</a>
+            <a href="/dashboard/doc" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-file-document"></i> &nbsp;SumoDoc</a>
             <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-pencil"></i> &nbsp;SumoCreate</a>
             <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-school"></i> &nbsp;University Apps</a>
             <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-email"></i> &nbsp;Email</a>
@@ -101,9 +102,6 @@
                   <% } else { %>
                     <a class="nav-link active bg-light" href="/darkmode">Dark Mode <i class="mdi mdi-weather-night"></i></a>
                   <% } %>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" href="#" >Home <span class="sr-only">(current)</span></a>
                 </li>
                 <!-- <li class="nav-item">
                   <a href="/users/logout" class="btn btn-secondary">Logout</a>
@@ -150,6 +148,7 @@
                       class="form-control"
                       placeholder="Subject Name"
                       required
+                      maxlength="10"
                     />
                     <div class="invalid-feedback">
                       What's the subject name?

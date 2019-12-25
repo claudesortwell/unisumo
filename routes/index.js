@@ -1,12 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated } = require('../config/auth');
-const stripe = require('stripe')(process.env.STRIPE_API_KEY);
-const mongoose = require('mongoose');
-
-mongoose.connect(db, {useNewUrlParser: true })
-    .then(() => console.log('MongoDB Connected from index.js...'))
-    .catch(err => console.log(err));
+const { ensureAuthenticated, ensureActiveSub } = require('../config/auth');
+const fs = require("fs");
 
 // Welcome Page
 router.get('/', function(req, res) {
@@ -18,56 +13,19 @@ router.get('/', function(req, res) {
 });
 
 // Dashboard Page
-router.get('/dashboard', ensureAuthenticated, function(req, res) {
-    if(req.user.planVer > 0){
-        stripe.subscriptions.retrieve(
-            req.user.stripeSubId,
-            function(err, subscription) {
-                if(err){
-                    console.log(err);
-                }
-
-                switch(subscription.status){
-                    case 'active':
-                        Subject.find({ownedUser: req.user._id})
-                            .then(subject => {
-                                if(!subject) {
-                                    res.render('home', {
-                                        layout: 'dashboardlayout',
-                                        name: req.user.name,
-                                        darkmode: req.user.darkMode,
-                                        uni: req.user.uni,
-                                        title:'Dashboard'
-                                    });
-                                } else { 
-                                    res.render('home', {
-                                        layout: 'dashboardlayout',
-                                        name: req.user.name,
-                                        darkmode: req.user.darkMode,
-                                        uni: req.user.uni,
-                                        subjects: subject, 
-                                        title:'Dashboard'
-                                    });
-                                }
-                            })
-                            .catch(err => console.log(err));
-                        break;
-                    case 'canceled':
-                        req.flash('error_msg', 'You have canceled your subscription, please select a new plan and enter your details.');
-                        res.redirect('/pay');
-                        break;
-                    case 'incomplete': case 'incomplete-expired': case 'unpaid': case 'past_due':
-                        req.flash('error_msg', 'Payment Failed, please select a subscription and re enter your payment details');
-                        res.redirect('/pay');
-                        break;
-                }
-        
-            }
-        );
-    } else {
-        req.flash('error_msg', 'To access ur dashboard you need to setup ur plan and payment options.');
-        res.redirect('/pay');
-    }
+router.get('/dashboard', ensureAuthenticated, ensureActiveSub, function(req, res) {
+    Subject.find({ownedUser: req.user._id})
+        .then(subject => {
+            res.render('home', {
+                layout: 'dashboardlayout',
+                name: req.user.name,
+                darkmode: req.user.darkMode,
+                uni: req.user.uni,
+                subjects: subject, 
+                title:'Dashboard'
+            });
+        })
+        .catch(err => console.log(err));            
 });
 
 // Payment Page
@@ -76,7 +34,7 @@ router.get('/pay', ensureAuthenticated, function(req, res) {
 });
 
 // Add a subject
-router.post('/addsub', ensureAuthenticated, (req, res) => {
+router.post('/addsub', ensureAuthenticated, ensureActiveSub, (req, res) => {
     const { name, icon, color } = req.body;
     const ownedUser = req.user._id;
 
@@ -101,8 +59,9 @@ router.post('/addsub', ensureAuthenticated, (req, res) => {
 
 });
  
+
 // Remove a subject (permanently)
-router.get('/removesub/:id', ensureAuthenticated, function(req, res) {
+router.get('/removesub/:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
 
     var subjectId = req.params.id;
     Subject.deleteOne({_id:subjectId, ownedUser:req.user._id}, function(err){
@@ -118,35 +77,27 @@ router.get('/removesub/:id', ensureAuthenticated, function(req, res) {
 });
 
 // Settings Page 
-router.get('/dashboard/settings', ensureAuthenticated, function(req, res) {
+router.get('/dashboard/settings', ensureAuthenticated, ensureActiveSub, function(req, res, viewSubject) {
+
     Subject.find({ownedUser: req.user._id})
         .then(subject => {
-            if(!subject) {
-                res.render('settings', {
-                    layout: 'dashboardlayout',
-                    name: req.user.name,
-                    email: req.user.email,
-                    uni: req.user.uni,
-                    darkmode: req.user.darkMode,
-                    title:'settings'
-                });
-            } else { 
-                res.render('settings', {
-                    layout: 'dashboardlayout',
-                    email: req.user.email,
-                    uni: req.user.uni,
-                    name: req.user.name,
-                    darkmode: req.user.darkMode,
-                    subjects: subject, 
-                    title:'settings'
-                });
-            }
+            res.render('settings', {
+                layout: 'dashboardlayout',
+                email: req.user.email,
+                uni: req.user.uni,
+                name: req.user.name,
+                darkmode: req.user.darkMode,
+                subjects: subject, 
+                title:'Settings'
+            });
         })
         .catch(err => console.log(err));
+
 });
 
+
 // Update user
-router.post('/dashboard/updateuser', ensureAuthenticated, function(req, res) {
+router.post('/dashboard/updateuser', ensureAuthenticated, ensureActiveSub, function(req, res) {
     let user = {};
 
     user.name = req.body.name;
@@ -165,8 +116,9 @@ router.post('/dashboard/updateuser', ensureAuthenticated, function(req, res) {
     });
 });
 
+
 // Update subject details
-router.post('/dashboard/updatesubject/:id', ensureAuthenticated, function(req, res) {
+router.post('/dashboard/updatesubject/:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
     let subject = {};
 
     subject.name = req.body.name;
@@ -188,7 +140,7 @@ router.post('/dashboard/updatesubject/:id', ensureAuthenticated, function(req, r
 
 
 // Enable dark mode
-router.get('/darkmode', ensureAuthenticated, function(req, res) {
+router.get('/darkmode', ensureAuthenticated, ensureActiveSub, function(req, res) {
     var tempDark = false;
     if(req.user.darkMode != true) {
         tempDark = true;
@@ -203,6 +155,92 @@ router.get('/darkmode', ensureAuthenticated, function(req, res) {
         } else {
             res.redirect('back');   
         }
+    });
+});
+
+
+// Document router
+router.get('/dashboard/doc:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
+    
+    Subject.find({ownedUser: req.user._id})
+        .then(subject => {
+            sub = subject;
+        })
+        .catch(err => console.log(err));
+
+    let sub = {};
+
+    Document.findOne({_id: req.params.id, ownedBy: req.user._id})
+        .then(document => {
+            if(document == null) {
+                res.redirect('/404');
+            } else {
+                res.render('docs', {
+                    layout: 'dashboardlayout',
+                    name: req.user.name,
+                    email: req.user.email,
+                    uni: req.user.uni,
+                    subjects: sub,
+                    document: document,
+                    darkmode: req.user.darkMode,
+                    title:'docs'
+                });
+            }
+        })
+        .catch(err => console.log(err));
+   
+});
+
+// Document saver
+router.post('/dashboard/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res){
+    let doc = {};
+
+    console.log(req.body.docId, req.body.docName);
+    doc.docName = req.body.docName;
+    doc.docText = req.body.docText;
+
+    Document.updateOne({_id: req.body.docId, ownedBy: req.user._id}, {$set: {docName: req.body.docName, docText: req.body.docText}}, 
+        function(err){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(err);  
+            }
+        }
+    );
+
+    // fs.writeFile("./sumodocs/" + req.user._id + ".txt", req.body.text, (err) => {
+    //     if (err){
+    //         console.log(err);
+    //     } 
+    //     console.log("Successfully Written to File.");
+    // });
+});
+
+// New Doc Maker
+router.post('/dashboard/newdoc', ensureActiveSub, ensureAuthenticated, function(req, res){
+    var {docName, docText, sharedWith} = req.body;
+    var ownedUser = req.user._id
+
+    const newDocument = new Document({
+        docName, 
+        docText,
+        ownedUser
+    });
+
+    newSubject.save()
+        .then(document => {
+            req.flash('success_msg', 'Subject created successfully');
+            res.redirect('back'); 
+        })
+        .catch(err => console.log(err));
+
+
+    fs.writeFile("./sumodocs/" + req.user._id + ".txt", req.body.text, (err) => {
+        if (err){
+            console.log(err);
+        } 
+        console.log("Successfully Written to File.");
     });
 });
 
