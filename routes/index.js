@@ -191,32 +191,6 @@ router.get('/dashboard/doc:id', ensureAuthenticated, ensureActiveSub, function(r
    
 });
 
-// Document saver
-router.post('/dashboard/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res){
-    let doc = {};
-
-    console.log(req.body.docId, req.body.docName);
-    doc.docName = req.body.docName;
-    doc.docText = req.body.docText;
-
-    Document.updateOne({_id: req.body.docId, ownedBy: req.user._id}, {$set: {docName: req.body.docName, docText: req.body.docText}}, 
-        function(err){
-            if(err){
-                console.log(err);
-            } else {
-                console.log(err);  
-            }
-        }
-    );
-
-    // fs.writeFile("./sumodocs/" + req.user._id + ".txt", req.body.text, (err) => {
-    //     if (err){
-    //         console.log(err);
-    //     } 
-    //     console.log("Successfully Written to File.");
-    // });
-});
-
 // New Doc Maker
 router.post('/dashboard/newdoc', ensureActiveSub, ensureAuthenticated, function(req, res){
     var {docName, docText, sharedWith} = req.body;
