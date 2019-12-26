@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const { ensureAuthenticated } = require('../config/auth');
+const fs = require('fs');
 
 // User model
 const User = require('../models/User');
@@ -88,6 +89,9 @@ router.post('/register', (req, res) => {
                         // Save user
                         newUser.save()
                             .then(user => {
+                                fs.mkdirSync("./sumodocs/" + user._id + "/");
+                                fs.mkdirSync("./sumodocs/" + user._id + "/doc/");
+
                                 req.flash('success_msg', 'You are now registered and can log in');
                                 res.redirect('/users/login');
                             })

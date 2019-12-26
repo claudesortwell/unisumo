@@ -5,8 +5,8 @@ const DocumentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    docText: {
-        type: String,
+    docTextVersion: {
+        type: Number,
         required: true
     },
     ownedBy: {
@@ -20,6 +20,10 @@ const DocumentSchema = new mongoose.Schema({
     sharedWith: {
         type: String,
         required: false
+    },
+    subjectWith: {
+        type: String,
+        default: null
     }
 });
 
