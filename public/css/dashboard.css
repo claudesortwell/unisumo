@@ -1148,7 +1148,7 @@ body.my-login-page {
 
 .alerts-center {
   position: absolute;
-  z-index: 10;
+  z-index: 100000;
   margin: 0 calc(50% - 250px);
   top: 15px;
   width: 500px;
@@ -1213,7 +1213,7 @@ body.my-login-page {
   box-shadow: 0px 0px 4px 1px #0000001f;
 }
 
-.dropdown .dropdown-menu{animation-name: example; animation-duration: 1s;}
+.dropdown .dropdown-menu, .subject-dropdown{animation-name: example; animation-duration: 1s;}
 @keyframes example {
     from {opacity:0}
     to {opacity:1;}
@@ -1231,6 +1231,8 @@ body.my-login-page {
 }
 
 .sidebar-nav-item:hover {
+  background-color: #fff !important;
+  color: #000 !important;
   box-shadow: 0px 0px 5px #0000004d;
 }
 
@@ -1248,8 +1250,33 @@ body.my-login-page {
   color: #005aff;
 }
 
-.subject-sidebar-link-active {
+.subject-sidebar-link {
   margin-top: 5px;
+}
+
+.subject-sidebar-link-active {
   background-color: #fff !important;
   color: #005aff !important;
+}
+
+.subject-option {
+  padding: 15px 20px;
+}
+
+.subject-option:hover {
+  color: #005aff !important;
+}
+
+.name-top-bar-link {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-transition: 0.2s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+
+.name-top-bar-link:hover {
+  box-sizing: content-box;
+  color: #005aff !important;
+  box-shadow: 0px 0px 5px #d3d3d3;
 }
