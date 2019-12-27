@@ -35,23 +35,22 @@ router.get('/pay', ensureAuthenticated, function(req, res) {
 
 // Add a subject
 router.post('/addsub', ensureAuthenticated, ensureActiveSub, (req, res) => {
-    const { name, icon, color } = req.body;
+    const { name, icon } = req.body;
     const ownedUser = req.user._id;
 
     // Check required fields
-    if(!name || !icon || !color) {
+    if(!name || !icon) {
         req.flash('error_msg', 'Please fill in all fields');
         res.redirect('/dashboard');
     } else {
         const newSubject = new Subject({
             name, 
             icon,
-            color,
             ownedUser
         });
         newSubject.save()
             .then(subject => {
-                req.flash('success_msg', 'Subject created successfully');
+                req.flash('success_msg', 'Subject "' + subject.name + '"created successfully');
                 res.redirect('back'); 
             })
             .catch(err => console.log(err));
@@ -123,7 +122,6 @@ router.post('/dashboard/updatesubject/:id', ensureAuthenticated, ensureActiveSub
 
     subject.name = req.body.name;
     subject.icon = req.body.icon;
-    subject.color = req.body.colour;
 
     let query = {_id: req.params.id, ownedUser:req.user._id};
 
@@ -131,7 +129,6 @@ router.post('/dashboard/updatesubject/:id', ensureAuthenticated, ensureActiveSub
         if(err) {
             console.log(err)
         } else {
-            console.log(subject.colour);
             req.flash('success_msg', 'Subject updated sucessfully');
             res.redirect('/dashboard/settings');
         }

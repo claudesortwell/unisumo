@@ -9,10 +9,6 @@ const SubjectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    color: {
-        type: String,
-        required: true
-    },
     ownedUser: {
         type: String,
         required: true

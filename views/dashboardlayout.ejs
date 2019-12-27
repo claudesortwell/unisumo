@@ -38,42 +38,36 @@
 <body>
 <div class="d-flex" id="wrapper">
 
-        <div id="loading" class="preloader <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
+        <div id="loading" class="preloader">
           <?xml version="1.0" encoding="utf-8"?>
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="197px" height="197px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
           <circle cx="50" cy="50" r="29" stroke-width="4" stroke="#0080ff" stroke-dasharray="45.553093477052 45.553093477052" fill="none" stroke-linecap="round" transform="rotate(337.163 50 50)">
             <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
           </circle>
           </svg>
-          <h4 class="text-center <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="margin: auto;">Unisumo is loading....</h4>
+          <h4 class="text-center light-text" style="margin: auto;">Unisumo is loading....</h4>
         </div>
 
         <!-- Sidebar -->
-        <div class="navbar-side-stick navbar-top-stick <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %> border-right" id="sidebar-wrapper">
+        <div class="navbar-side-stick navbar-top-stick bg-custom right-shadow-dark" id="sidebar-wrapper">
           <div class="sidebar-heading">
-            <% if(darkmode == true) { %>
-              <a href="/dashboard"><img src="../img/svg/logotextwhite.svg" alt=""></a>
-            <% } else { %>
-              <a href="/dashboard"><img src="../img/svg/logotextblack.svg" alt=""></a>
-            <% } %>
+            <a href="/dashboard"><img src="../img/svg/logotextwhite.svg" alt=""></a>
           </div>
-          <div class="list-group list-group-flush <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-            <a href="/dashboard" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
-            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-folder"></i> &nbsp;My Drive</a>
-            <a href="/dashboard/doc" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-file-document"></i> &nbsp;SumoDoc</a>
-            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-pencil"></i> &nbsp;SumoCreate</a>
-            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-school"></i> &nbsp;University Apps</a>
-            <a href="#" class="med-font list-group-item list-group-item-action <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><i class="mdi mdi-email"></i> &nbsp;Email</a>
+          <div class="list-group list-group-flush bg-custom light-text" style="padding: 20px 15px;padding-top: 5px;">
+            <a href="/dashboard" class="sidebar-nav-item link-sidebar med-font list-group-item list-group-item-action active-nav-a bg-custom light-text"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
+            <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-folder"></i> &nbsp;My Drive</a>
+            <a href="/dashboard/doc" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text "><i class="mdi mdi-file-document"></i> &nbsp;SumoDoc</a>
+            <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-pencil"></i> &nbsp;SumoCreate</a>
+            <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-school"></i> &nbsp;University Apps</a>
+            <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-email"></i> &nbsp;Email</a>
 
-            <h4 class="text-center sidebar-title bg_dark dark-border">My Subjects</h4>
-
-            <% include ./partials/subject %>
-
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSubModal" style="margin: 25px;border-radius: 0px;">
-              <i class="mdi mdi-plus-circle-outline"></i>
-              Add a Subject
-            </button>
+            <div class="">
+              <h6 class="text-left sidebar-title bg_dark dark-border" style="display: inline-block;padding-left: 5px;border:none;">Subjects</h6>
+              <a data-toggle="modal" data-target="#addSubModal" style="cursor: pointer;"><i class="subject-add-icon mdi mdi-plus-circle text-right"></i></a>
+              <div class="subject-sidebar-items">
+                <% include ./partials/subject %>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -87,8 +81,8 @@
         <div class=" <% if(darkmode == true){%> dark-container <%}%>" id="page-content-wrapper">
     
           <nav class="navbar navbar-expand-lg navbar-light navbar-top-stick <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %> border-bottom" data-spy="affix"> 
-            <button class="btn btn-primary" onclick="menuToggle()" id="menu-hide">Hide <i class="mdi mdi-format-indent-decrease"></i></button>
-            <button class="btn btn-primary" onclick="menuToggle()" id="menu-show" style="display: none;">Show <i class="mdi mdi-format-indent-increase"></i></button>
+            <button class="btn btn-primary" onclick="menuToggle()" id="menu-hide"><i class="mdi mdi-format-indent-decrease"></i></button>
+            <button class="btn btn-primary" onclick="menuToggle()" id="menu-show" style="display: none;"><i class="mdi mdi-format-indent-increase"></i></button>
     
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -129,10 +123,10 @@
         <!-- Add Sub Modal -->
         <div class="modal fade " id="addSubModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
-            <div class="modal-content <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
-              <div class="modal-header <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>">
+            <div class="modal-content bg-light">
+              <div class="modal-header bg-light">
                 <h5 class="modal-title" id="exampleModalLabel">Add a new Subject</h5>
-                <button type="button" class="close <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close bg-light" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -208,23 +202,6 @@
                       What's icon would you like for the subject?
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label for="name"><i class="mdi mdi-format-color-fill"></i> Subject Colour</label>
-                    
-                    <div class="container text-center" style="margin-top: 20px;">
-                      <div class="row">
-                        <div class="col-sm"><label class="radio-color red-option" id="icon-radio-color0" onclick="radioColorSelect('red', this)" for="" style="color: #fff !important">Red</label><input type="radio" id="red" name="color" value="#ff4d4d" class="form-control hide-radio"/></div>
-                        <div class="col-sm"><label class="radio-color green-option" id="icon-radio-color1" onclick="radioColorSelect('green', this)" for="" style="color: #fff !important">Green</label><input type="radio" id="green" name="color" value="#33cc33" class="form-control hide-radio"/></div>
-                        <div class="col-sm"><label class="radio-color blue-option" id="icon-radio-color2" onclick="radioColorSelect('blue', this)" for="" style="color: #fff !important">Blue</label><input type="radio" id="blue" name="color" value="#007bff" class="form-control hide-radio"/></div>
-                        <div class="col-sm"><label class="radio-color orange-option" id="icon-radio-color3" onclick="radioColorSelect('orange', this)" for="" style="color: #fff !important">Orange</label><input type="radio" id="orange" name="color" value="#ff9900" class="form-control hide-radio"/></div>
-                        <div class="col-sm"><label class="radio-color purple-option" id="icon-radio-color4" onclick="radioColorSelect('purple', this)" for="" style="color: #fff !important">Purple</label><input type="radio" id="purple" name="color" value="#cc00ff" class="form-control hide-radio"/></div>
-                      </div>
-                    </div>
-
-                    <div class="invalid-feedback">
-                      Please set a subject color
-                    </div>
-                  </div>
 
                   <div class="modal-footer <% if(darkmode == true){%> bg-dark dark-border <%}else{%> bg-light <% } %>" style="padding-bottom: 0;">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -270,7 +247,6 @@
 
           $(document).ready(function() {
             radioSelect('science', '#icon-radio0');
-            radioColorSelect('red', '#icon-radio-color0');
           });
         </script>
     

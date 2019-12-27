@@ -5,6 +5,7 @@ function menuToggle() {
 }
 
 function dropdownSubject(item) {
+  $('#click'+item).toggleClass('subject-sidebar-link-active');
   $('#'+item).toggle();
 }
 
