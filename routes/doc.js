@@ -22,7 +22,6 @@ router.get('/ed:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
     //     .catch(err => console.log(err));
 
     let sub = null;
-    let docText;
 
     Document.findOne({_id: req.params.id, ownedBy: req.user._id})
         .then(document => {
@@ -50,13 +49,17 @@ router.get('/ed:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
 
 // Document saver
 router.post('/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res){
-    let doc = {};
+    Document.findOne({_id: req.body.docId, ownedBy: req.user._id}).then(document => {
+        document.docName = req.body.docName;
+        document.docTextVersion = String(parseInt(document.docTextVersion, 10) + 1);
+        document.save();
+
+        fs.writeFileSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/" + document.docTextVersion + ".txt", req.body.docText);
+    });
 
     console.log(req.body.docId, req.body.docName);
-    doc.docName = req.body.docName;
-    doc.docText = req.body.docText;
 
-    Document.findAndModify({_id: req.body.docId, ownedBy: req.user._id}, {$set: {docName: doc.docName}}, {$inc: {docTextVersion: 1}}, {useFindAndModify: false});
+    //Document.findOneAndUpdate({_id: req.body.docId, ownedBy: req.user._id}, {$set: {docName: doc.docName}});
 
 
     // var dir = "./sumodocs/" + req.user._id + "/doc";
@@ -81,7 +84,7 @@ router.post('/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res)
     req.flash('success_msg', 'Subject updated sucessfully');
 });
 
-router.get('/newdoc', ensureAuthenticated, ensureActiveSub, function(req, res) {
+router.get('/new', ensureAuthenticated, ensureActiveSub, function(req, res) {
     var docName = 'New Document';
     var docTextVersion = '0';
     var ownedBy = req.user._id;
@@ -97,9 +100,8 @@ router.get('/newdoc', ensureAuthenticated, ensureActiveSub, function(req, res) {
     newDocument.save()
         .then(document => {
             fs.mkdirSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/");
-
-            fs.writeFileSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/" + document.docTextVersion + ".txt");
-            
+            fs.writeFileSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/" + document.docTextVersion + ".txt", '');
+            res.redirect('/doc/ed' + document._id);
         })
         .catch(err => console.log(err)); 
 });

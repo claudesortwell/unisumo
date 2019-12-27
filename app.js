@@ -77,26 +77,10 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
     }
 
     STRIPE_API.createCustomerAndSubscription(req.body, req.user).then(() => {
-        let user = {};
-        user.name = req.user.name;
-        user.email = req.user.email;
-        user.uni = req.user.uni;
-        user.password = req.user.password;
-        user.date = req.user.date;
-        user.planVer = req.body.planId;
-
-        let query = {_id:req.user._id};
-
-        User.updateOne(query, user, function(err){
-            if(err){
-                console.log(err)
-                return;
-            } else {
-                res.redirect('/users/logout');
-            }
-        });
-
-
+        setTimeout(function(){
+            req.flash('success_msg', "Payment was successful, enjoy Unisumo");
+            res.redirect('/dashboard');
+        }, 2000);
     }).catch(err => {
         req.flash('error_msg', "Please try again. " + err.message);
         res.redirect('/pay');

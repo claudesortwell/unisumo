@@ -6,7 +6,7 @@ const DocumentSchema = new mongoose.Schema({
         required: true
     },
     docTextVersion: {
-        type: Number,
+        type: String,
         required: true
     },
     ownedBy: {

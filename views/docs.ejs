@@ -16,48 +16,77 @@ page[size="A4"]:contenteditable {
 }
 
 .doc-nav a {
-    font-size: 22px;
+    font-size: 20px;
     padding: 5px 10px !important;
     border-radius: 5px;
+    color: #000;
+    transition: 0.3s ease-in-out;
+}
+
+.doc-nav a:hover {
+    background-color: #fff;
+    color: #0252e6;
+    box-shadow: 0px 0px 5px #d3d3d3;
+}
+
+.doc-top-nav {
+    top: 58px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px #d3d3d3;
+    padding: 0px 10px;
+    z-index: 1000 !important;
 }
 </style>
 
-<h1 contenteditable="true" id="documentTitle" class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="font-weight: 600;font-size: 35px;display: inline-block;"><% if(document.docName != ""){%> <%= document.docName %> <%}else{%> New Document <% } %></h1>
-<p class="<% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" style="display: inline-block;"> &nbsp;  Last saved: 2 Days ago</p>
+<h1 contenteditable="true" id="documentTitle" style="display: inline-block; padding-top: 10px;"><% if(document.docName != ""){%> <%= document.docName %> <%}else{%> New Document <% } %></h1>
+<p class="" style="display: inline-block; font-size: 14px"> &nbsp;  Last saved: 2 Days ago</p>
 
 <button type="submit" class="btn btn-primary float-right" id="savebtn"><i class="mdi mdi-content-save"></i> Save</button>
 <button class="btn btn-primary float-right" id="cmd" style="margin-right: 10px;"><i class="mdi mdi-file-pdf"></i> Download as PDF</button>
-<hr>
 
-<nav class="navbar navbar-expand-lg navbar-top-stick <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="top: 68px;border-radius: 0px 0px 10px 10px;border-top: 1px solid #343a40;">
+<nav class="navbar navbar-expand-lg navbar-top-stick doc-top-nav" style="top: 58px;background-color: #fff;box-shadow: 0px 0px 4px #d3d3d3;padding: 0px 10px;">
     <div class=" navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav doc-nav mr-auto">
-            <li class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-                <a title="Undo" class="nav-link <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#"><i class="mdi mdi-undo"></i></a>
+            <li class="nav-item active  ">
+                <a title="Undo" class="nav-link  " href="#"><i class="mdi mdi-undo"></i></a>
             </li>
-            <li class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-                <a title="Redo" class="nav-link <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#"><i class="mdi mdi-redo"></i></a>
+            <li class="nav-item active  ">
+                <a title="Redo" class="nav-link  " href="#"><i class="mdi mdi-redo"></i></a>
             </li>
-            <li class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-                <a title="Print" class="nav-link <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#"><i class="mdi mdi-printer"></i></a>
+            <li class="nav-item active  ">
+                <a title="Print" class="nav-link  " href="#"><i class="mdi mdi-printer"></i></a>
             </li>
-            <li class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-                <a class="nav-link <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            <div class="nav-doc-divider"></div>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-title"></i></a>
             </li>
-            <li class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>">
-                <a class="nav-link <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#"><i class="mdi mdi-file-pdf"></i></a>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-bold"></i></a>
             </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-italic"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-underline"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-invert-colors"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-color-highlight"></i></a>
+            </li>
+            
+            <div class="nav-doc-divider"></div>
         </ul>
 
-        <div class="nav-item active <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %> dropdown">
-            <a class="nav-link dropdown-toggle <% if(darkmode == true){%> light-text <%}else{%> dark-text <% } %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Download Document
+        <div class="nav-item active   dropdown">
+            <a class="nav-link dropdown-toggle" style="font-size: 12px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Export Document
               </a>
-            <div class="dropdown-menu dropdown-menu-right <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>s" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#"><i class="mdi mdi-file-pdf"></i> Export as PDF</a>
+                <a class="dropdown-item" href="#"><i class="mdi mdi-file-word"></i> Export as Docx</a>
+                <a class="dropdown-item" href="#"><i class="mdi mdi-note-text"></i> Export as .txt</a>
             </div>
         </div>
       </div>
@@ -68,7 +97,7 @@ page[size="A4"]:contenteditable {
     <%- docText %>
 </page>
 
-<nav class="navbar navbar-expand-lg navbar-top-stick <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>" style="border-radius: 10px 10px 0px 0px;border-top: 1px solid #343a40;bottom: 0;">
+<nav class="navbar navbar-expand-lg navbar-top-stick" style="border-radius: 10px 10px 0px 0px;border-top: 1px solid #343a40;bottom: 0;z-index: 1000 !important;">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav doc-nav mr-auto">
             <li class="nav-item active bg-dark">

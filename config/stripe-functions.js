@@ -23,7 +23,7 @@ function createCustomerAndSubscription(requestBody, user, req) {
             // Setting subscription ID in mongodb
             User.updateOne(
               {email: user.email},
-              {$set: {stripeSubId: subscription.id, stripeCusId: customer.id}},
+              {$set: {stripeSubId: subscription.id, stripeCusId: customer.id, planVer: requestBody.planId}},
             function(err){
               if(err){
                 console.log(err);
