@@ -44,6 +44,12 @@ router.get('/ed:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
             }
         })
         .catch(err => console.log(err));
+    
+    let firstDate = new Date("7/13/2016"),
+    secondDate = new Date("09/15/2017"),
+    timeDifference = Math.abs(secondDate.getTime() - firstDate.getTime());
+    
+    console.log(timeDifference);
    
 });
 
@@ -56,34 +62,13 @@ router.post('/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res)
 
         fs.writeFileSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/" + document.docTextVersion + ".txt", req.body.docText);
     });
-
-    console.log(req.body.docId, req.body.docName);
-
-    //Document.findOneAndUpdate({_id: req.body.docId, ownedBy: req.user._id}, {$set: {docName: doc.docName}});
-
-
-    // var dir = "./sumodocs/" + req.user._id + "/doc";
-
-    // if (fs.existsSync(dir)) {
-    //     fs.writeFile(dir + req.body.docId + ".txt", req.body.docText, (err) => {
-    //         if (err){
-    //             console.log(err);
-    //         } 
-    //         console.log("Successfully Written to File.");
-    //     });
-    // } else {
-    //     fs.mkdirSync(dir);
-    //     fs.writeFile("./sumodocs/" + req.user._id + "/" + req.body.docId + ".txt", req.body.text, (err) => {
-    //         if (err){
-    //             console.log(err);
-    //         } 
-    //         console.log("Successfully Written to File.");
-    //     });
-    // }
+    
+    console.log('Worked');
 
     req.flash('success_msg', 'Subject updated sucessfully');
 });
 
+// Create a new document
 router.get('/new', ensureAuthenticated, ensureActiveSub, function(req, res) {
     var docName = 'New Document';
     var docTextVersion = '0';

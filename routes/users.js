@@ -90,7 +90,7 @@ router.post('/register', (req, res) => {
                         newUser.save()
                             .then(user => {
                                 fs.mkdirSync("./sumodocs/" + user._id + "/");
-                                fs.mkdirSync("../sumodocs/" + user._id + "/doc/");
+                                fs.mkdirSync("./sumodocs/" + user._id + "/doc/");
 
                                 req.flash('success_msg', 'You are now registered and can log in');
                                 res.redirect('/users/login');

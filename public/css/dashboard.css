@@ -962,8 +962,14 @@ body {
 }
 
 #page-content-wrapper {
-  min-width: 100vw;
+  height: 100%;
+  position: absolute;
+  right: 0;
   background-color: #cccccc3b;
+  -webkit-transition: max-width .25s ease-out;
+  -moz-transition: max-width .25s ease-out;
+  -o-transition: max-width .25s ease-out;
+  transition: max-width .25s ease-out;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -976,6 +982,7 @@ body {
   }
 
   #page-content-wrapper {
+    max-width: calc(100% - 240px);
     min-width: 0;
     width: 100%;
   }
@@ -983,6 +990,10 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+.menu-toggled {
+  max-width: 100% !important;
 }
 
 html,body {
@@ -1175,10 +1186,17 @@ body.my-login-page {
   position: sticky;
   top: 0;
   z-index: 10000;
+  scrollbar-width: none;
+}
+
+.navbar-side-stick::-webkit-scrollbar {
+  display: none;
 }
 
 .navbar-side-stick {
-  display: table;
+  overflow-y: scroll;
+  bottom: 0;
+  position: fixed;
 }
 
 .modal-backdrop {

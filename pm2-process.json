@@ -1,0 +1,9 @@
+{
+    "name": "Unisumo",
+    "script": "app.js",
+    "watch": true,
+    "ignore_watch": ["sumodocs"],
+    "watch_options": {
+        "followSymlinks": false
+    }
+}

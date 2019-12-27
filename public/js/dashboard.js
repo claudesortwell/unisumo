@@ -2,6 +2,7 @@ function menuToggle() {
   $('#menu-hide').toggle();
   $('#menu-show').toggle();
   $("#wrapper").toggleClass("toggled");
+  $("#page-content-wrapper").toggleClass("menu-toggled");
 }
 
 function dropdownSubject(item) {

@@ -56,9 +56,15 @@ page[size="A4"]:contenteditable {
             <li class="nav-item active  ">
                 <a title="Print" class="nav-link  " href="#"><i class="mdi mdi-printer"></i></a>
             </li>
+
             <div class="nav-doc-divider"></div>
+
+            
             <li class="nav-item active  ">
                 <a class="nav-link  " href="#"><i class="mdi mdi-format-title"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-size"></i></a>
             </li>
             <li class="nav-item active  ">
                 <a class="nav-link  " href="#"><i class="mdi mdi-format-bold"></i></a>
@@ -77,13 +83,43 @@ page[size="A4"]:contenteditable {
             </li>
             
             <div class="nav-doc-divider"></div>
+
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-list-bulleted"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-align-left"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-align-center"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-align-right"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-format-align-justify"></i></a>
+            </li>
+
+            <div class="nav-doc-divider"></div>
+
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-image"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-youtube"></i></a>
+            </li>
+            <li class="nav-item active  ">
+                <a class="nav-link  " href="#"><i class="mdi mdi-link-variant"></i></a>
+            </li>
+
+            <div class="nav-doc-divider"></div>
         </ul>
 
         <div class="nav-item active   dropdown">
-            <a class="nav-link dropdown-toggle" style="font-size: 12px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Export Document
-              </a>
-            <div class="dropdown-menu dropdown-menu-right" style="font-size: 12px;" aria-labelledby="navbarDropdown">
+            <a class="nav-link dropdown-toggle" style="font-size: 14px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="mdi mdi-file-download"></i> Document
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" style="font-size: 14px;" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#"><i class="mdi mdi-file-pdf"></i> Export as PDF</a>
                 <a class="dropdown-item" href="#"><i class="mdi mdi-file-word"></i> Export as Docx</a>
                 <a class="dropdown-item" href="#"><i class="mdi mdi-note-text"></i> Export as .txt</a>
@@ -136,6 +172,9 @@ page[size="A4"]:contenteditable {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js">
 </script>
 
+<script src="../js/docFunctions.js"></script>
+
+
 <script>
     var doc = new jsPDF('p','mm',[210, 297]);
 
@@ -145,13 +184,44 @@ page[size="A4"]:contenteditable {
         doc.save(filename + '.pdf'); 
     });
 
-    $('#savebtn').unbind().click(function() {
+    var docTextArea = document.getElementById('docTextArea');
+    var docName = document.getElementById('documentTitle');
+    var docId = document.getElementById('secretIdValue');
+
+    function saveDocData(){
         $.post('/doc/savedoc', {
-            docId: document.getElementById('secretIdValue').value,
-            docName: document.getElementById('documentTitle').innerText,
-            docText: document.getElementById('docTextArea').innerHTML
+            docId: docId.value,
+            docName: docName.innerText,
+            docText: docTextArea.innerHTML
         })
+    }
+
+    var timeout = null;
+    // On key up after ammount of ms
+    docTextArea.onkeyup = function (e) {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function (){
+            console.log('Value:', docTextArea.innerHTML)
+        }, 5000)
+    }
+
+    $(window).on("beforeunload", function(evt) {
+        // Cancel the event (if necessary)
+        evt.preventDefault();
+
+        // Google Chrome requires returnValue to be set
+        evt.returnValue = '';
+
+        // Save document data then after that return
+        saveDocData().then(function() {
+            return;
+        });
     });
+
+    // window.onbeforeunload = function(){
+    //     saveDocData();
+    // }
 
     // Sub string an element (current max is around 98000 characters, need to make at least 500k)
 </script>
