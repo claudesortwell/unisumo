@@ -1316,3 +1316,34 @@ body.my-login-page {
   position: relative;
   height: 30px;
 }
+
+.doc-nav a {
+  font-size: 20px;
+  padding: 5px 10px !important;
+  border-radius: 5px;
+  color: #000;
+  transition: 0.3s ease-in-out;
+}
+
+.doc-nav a:hover {
+  background-color: #fff;
+  color: #0252e6 !important;
+  box-shadow: 0px 0px 5px #d3d3d3;
+}
+
+.doc-icon-active {
+  background-color: #70a1ff26;
+  border-radius: 0px !important;
+  color: #0252e6 !important;
+}
+
+#font-size-control {
+  left: -5px;
+  top: -2px;
+  position: relative;
+  font-size: 14px;
+  height: 30px;
+  padding: 5px !important;
+  color: #fff;
+  border-radius: 0px 5px 5px 0px;
+}

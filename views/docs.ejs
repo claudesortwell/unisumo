@@ -15,20 +15,6 @@ page[size="A4"]:contenteditable {
   height: 29.7cm; 
 }
 
-.doc-nav a {
-    font-size: 20px;
-    padding: 5px 10px !important;
-    border-radius: 5px;
-    color: #000;
-    transition: 0.3s ease-in-out;
-}
-
-.doc-nav a:hover {
-    background-color: #fff;
-    color: #0252e6;
-    box-shadow: 0px 0px 5px #d3d3d3;
-}
-
 .doc-top-nav {
     top: 58px;
     background-color: #fff;
@@ -39,14 +25,14 @@ page[size="A4"]:contenteditable {
 </style>
 
 <h1 contenteditable="true" id="documentTitle" style="display: inline-block; padding-top: 10px;"><% if(document.docName != ""){%> <%= document.docName %> <%}else{%> New Document <% } %></h1>
-<p class="" style="display: inline-block; font-size: 14px"> &nbsp;  Last saved: 2 Days ago</p>
+<p class="" id="docTimeSaved" style="display: inline-block; font-size: 14px"> &nbsp;  Last saved: 2 Days ago</p>
 
 <button type="submit" class="btn btn-primary float-right" id="savebtn"><i class="mdi mdi-content-save"></i> Save</button>
 <button class="btn btn-primary float-right" id="cmd" style="margin-right: 10px;"><i class="mdi mdi-file-pdf"></i> Download as PDF</button>
 
 <nav class="navbar navbar-expand-lg navbar-top-stick doc-top-nav" style="top: 58px;background-color: #fff;box-shadow: 0px 0px 4px #d3d3d3;padding: 0px 10px;">
     <div class=" navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav doc-nav mr-auto">
+        <ul class="navbar-nav doc-nav mr-auto" style="top: 1px;position: relative;">
             <li class="nav-item active  ">
                 <a title="Undo" class="nav-link  " href="#"><i class="mdi mdi-undo"></i></a>
             </li>
@@ -60,20 +46,50 @@ page[size="A4"]:contenteditable {
             <div class="nav-doc-divider"></div>
 
             
-            <li class="nav-item active  ">
-                <a class="nav-link  " href="#"><i class="mdi mdi-format-title"></i></a>
+            <li class="nav-item active">
+                <a class="nav-link" href="#" style="padding-bottom:2px !important;">
+                    <i class="mdi mdi-format-title" style="display: inline-block;"></i>
+                    <select id="font-size-option" class="form-control form-control-sm" style="display: inline;width: 120px;font-size:12px;position:relative;top:-2px;">
+                    <option>Arial</option>
+                    <option>Open Sans</option>
+                    <option>16</option>
+                    <option>18</option>
+                    <option>20</option>
+                    <option>22</option>
+                    <option>24</option>
+                    <option>26</option>
+                    <option>28</option>
+                    <option>30</option>
+                    <option>32</option>
+                    </select>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#" style="padding-bottom:2px !important">
+                    <i class="mdi mdi-format-size" style="display: inline-block;"></i>
+                    <select class="form-control form-control-sm" style="display: inline;width: 60px;position:relative;top:-2px;">
+                    <option>12</option>
+                    <option>14</option>
+                    <option>16</option>
+                    <option>18</option>
+                    <option>20</option>
+                    <option>22</option>
+                    <option>24</option>
+                    <option>26</option>
+                    <option>28</option>
+                    <option>30</option>
+                    <option>32</option>
+                    </select>
+                </a>
             </li>
             <li class="nav-item active  ">
-                <a class="nav-link  " href="#"><i class="mdi mdi-format-size"></i></a>
+                <a id="bold-option" class="nav-link  " href="#" onclick="addTags('bold');"><i class="mdi mdi-format-bold"></i></a>
             </li>
             <li class="nav-item active  ">
-                <a class="nav-link  " href="#"><i class="mdi mdi-format-bold"></i></a>
+                <a id="italic-option" class="nav-link  " href="#" onclick="addTags('italic');"><i class="mdi mdi-format-italic"></i></a>
             </li>
             <li class="nav-item active  ">
-                <a class="nav-link  " href="#"><i class="mdi mdi-format-italic"></i></a>
-            </li>
-            <li class="nav-item active  ">
-                <a class="nav-link  " href="#"><i class="mdi mdi-format-underline"></i></a>
+                <a id="underline-option" class="nav-link  " href="#" onclick="addTags('underline');"><i class="mdi mdi-format-underline"></i></a>
             </li>
             <li class="nav-item active  ">
                 <a class="nav-link  " href="#"><i class="mdi mdi-invert-colors"></i></a>
@@ -115,9 +131,9 @@ page[size="A4"]:contenteditable {
             <div class="nav-doc-divider"></div>
         </ul>
 
-        <div class="nav-item active   dropdown">
+        <div class="nav-item active dropdown">
             <a class="nav-link dropdown-toggle" style="font-size: 14px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="mdi mdi-file-download"></i> Document
+                <i class="mdi mdi-file-download"></i> Download
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="font-size: 14px;" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#"><i class="mdi mdi-file-pdf"></i> Export as PDF</a>
@@ -183,45 +199,4 @@ page[size="A4"]:contenteditable {
         doc.fromHTML($('#docTextArea').html(), 10, 10);
         doc.save(filename + '.pdf'); 
     });
-
-    var docTextArea = document.getElementById('docTextArea');
-    var docName = document.getElementById('documentTitle');
-    var docId = document.getElementById('secretIdValue');
-
-    function saveDocData(){
-        $.post('/doc/savedoc', {
-            docId: docId.value,
-            docName: docName.innerText,
-            docText: docTextArea.innerHTML
-        })
-    }
-
-    var timeout = null;
-    // On key up after ammount of ms
-    docTextArea.onkeyup = function (e) {
-        clearTimeout(timeout);
-
-        timeout = setTimeout(function (){
-            console.log('Value:', docTextArea.innerHTML)
-        }, 5000)
-    }
-
-    $(window).on("beforeunload", function(evt) {
-        // Cancel the event (if necessary)
-        evt.preventDefault();
-
-        // Google Chrome requires returnValue to be set
-        evt.returnValue = '';
-
-        // Save document data then after that return
-        saveDocData().then(function() {
-            return;
-        });
-    });
-
-    // window.onbeforeunload = function(){
-    //     saveDocData();
-    // }
-
-    // Sub string an element (current max is around 98000 characters, need to make at least 500k)
 </script>

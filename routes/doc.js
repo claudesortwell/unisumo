@@ -15,41 +15,37 @@ function readModuleFile(path, callback) {
 // Document router
 router.get('/ed:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
     
-    // Subject.find({ownedUser: req.user._id})
-    //     .then(subject => {
-    //         sub = subject;
-    //     })
-    //     .catch(err => console.log(err));
-
-    let sub = null;
-
-    Document.findOne({_id: req.params.id, ownedBy: req.user._id})
-        .then(document => {
-            if(document == null) {
-                res.redirect('/404');
-            } else {
-                readModuleFile("../sumodocs/" + req.user._id + "/doc/" + req.params.id + "/" + document.docTextVersion + '.txt', function (err, words) {
-                    res.render('docs', {
-                        layout: 'dashboardlayout',
-                        name: req.user.name,
-                        email: req.user.email,
-                        uni: req.user.uni,
-                        subjects: sub,
-                        docText: words,
-                        document: document,
-                        darkmode: req.user.darkMode,
-                        title:'docs'
-                    });
-                });
-            }
+    Subject.find({ownedUser: req.user._id})
+        .then(subject => {
+            Document.findOne({_id: req.params.id, ownedBy: req.user._id})
+                .then(document => {
+                    if(document == null) {
+                        res.redirect('/404');
+                    } else {
+                        readModuleFile("../sumodocs/" + req.user._id + "/doc/" + req.params.id + "/" + document.docTextVersion + '.txt', function (err, words) {
+                            res.render('docs', {
+                                layout: 'dashboardlayout',
+                                name: req.user.name,
+                                email: req.user.email,
+                                uni: req.user.uni,
+                                subjects: subject,
+                                docText: words,
+                                document: document,
+                                darkmode: req.user.darkMode,
+                                title:'docs'
+                            });
+                        });
+                    }
+                })
+                .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
+
+    // let firstDate = new Date("7/13/2016"),
+    // secondDate = new Date("09/15/2017"),
+    // timeDifference = Math.abs(secondDate.getTime() - firstDate.getTime());
     
-    let firstDate = new Date("7/13/2016"),
-    secondDate = new Date("09/15/2017"),
-    timeDifference = Math.abs(secondDate.getTime() - firstDate.getTime());
-    
-    console.log(timeDifference);
+    // console.log(timeDifference);
    
 });
 
@@ -63,9 +59,7 @@ router.post('/savedoc', ensureAuthenticated, ensureActiveSub, function(req, res)
         fs.writeFileSync("./sumodocs/" + req.user._id + "/doc/" + document._id + "/" + document.docTextVersion + ".txt", req.body.docText);
     });
     
-    console.log('Worked');
-
-    req.flash('success_msg', 'Subject updated sucessfully');
+    res.end('{"success" : "Updated Successfully", "status" : 200}');
 });
 
 // Create a new document

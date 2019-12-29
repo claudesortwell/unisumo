@@ -1,0 +1,19 @@
+<h1 class="dark-text" style="font-weight: 600;font-size: 35px;">Dashboard</h1>
+
+<hr>
+
+<iframe id="iframeId" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="https://student1.mq.edu.au/" onclick="myFunction();" style="width: 100%;height: calc(100vh - 100px);" frameborder="0"></iframe>
+
+<script>
+
+var iframe = document.getElementById("iframeId");
+if(top != window) {
+    top.location = window.location
+}
+
+function myFunction() {
+    var iframe = document.getElementById("iframeId");
+    var elmnt = iframe.contentWindow.document.getElementById("ctl00_Content_txtUserName_txtText")[0];
+    console.log(elmnt);
+}
+</script>
