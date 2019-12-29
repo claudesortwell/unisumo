@@ -159,14 +159,6 @@ router.get('/darkmode', ensureAuthenticated, ensureActiveSub, function(req, res)
 
 // Maq uni app page
 router.get('/uniapp', ensureAuthenticated, ensureActiveSub, function(req, res) {
-    http.get ({
-        host: 'localhost',
-        port: 8080,
-        path: 'http://nodejs.org/'
-    }, function (response) {
-        console.log (response);
-    });
-
     Subject.find({ownedUser: req.user._id})
         .then(subject => {
             res.render('maquni', {
