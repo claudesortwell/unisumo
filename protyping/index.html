@@ -1,0 +1,48 @@
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<!-- <div contenteditable id="editableContent" style="width: 624px;border: 2px solid #000;">
+wdwdwdw
+<span style="font-size: 38;">wdwdwdwdwdwdwdwdwdwd</span>
+</div> -->
+
+
+<div id="te1st" tabindex="0" style="width: 624px;height: 108px;border: 2px solid #000;">
+</div>
+
+<script src="main.js"></script>
+
+<div id="test">Area For Test</div>
+
+<script>
+$(document).ready(function () {
+
+$("#test").click(function (e) {
+    $('.float-span').remove();
+    $('body').append('<span id = "abc" class="float-span">' + '|' + '</span>');
+    var x = Math.round(e.clientX) + "px";
+    var y = Math.round(e.clientY) - 10 + "px";
+    $('.float-span').css({
+        'top': y,
+        'left': x
+    });
+
+});
+
+});
+</script>
+
+<style>
+#test {
+    background:#7FFFD4;
+    width:500px;
+    height:500px;
+    margin:20px;
+    position: relative;
+}
+.float-span {
+   position:absolute;
+}
+</style>

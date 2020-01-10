@@ -36,28 +36,16 @@
 
 <body>
 <div class="d-flex" id="wrapper">
-
-        <div id="loading" class="preloader">
-          <?xml version="1.0" encoding="utf-8"?>
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto;" width="197px" height="197px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-          <circle cx="50" cy="50" r="29" stroke-width="4" stroke="#0080ff" stroke-dasharray="45.553093477052 45.553093477052" fill="none" stroke-linecap="round" transform="rotate(337.163 50 50)">
-            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
-          </circle>
-          </svg>
-          <h4 class="text-center light-text" style="margin: auto;">Unisumo is loading....</h4>
-        </div>
-
         <!-- Sidebar -->
         <div class="navbar-side-stick navbar-top-stick bg-custom right-shadow-dark" id="sidebar-wrapper">
           <div class="sidebar-heading">
             <a href="/dashboard"><img src="../img/svg/logotextwhite.svg" alt=""></a>
           </div>
           <div class="list-group list-group-flush bg-custom light-text" style="padding: 20px 15px;padding-top: 5px;">
-            <a href="/dashboard" class="sidebar-nav-item link-sidebar med-font list-group-item list-group-item-action active-nav-a bg-custom light-text"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
+            <a href="/dashboard" class="sidebar-nav-item link-sidebar med-font list-group-item list-group-item-action <% if(activeTab == 'dashboard'){%> active-nav-a <% } %> bg-custom light-text"><i class="mdi mdi-view-dashboard"></i> &nbsp;Dashboard</a>
             <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-folder"></i> &nbsp;My Drive</a>
-            <a href="/dashboard/doc" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text "><i class="mdi mdi-file-document"></i> &nbsp;SumoDoc</a>
+            <a href="/dashboard/doc" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text <% if(activeTab == 'docs'){%> active-nav-a <% } %> "><i class="mdi mdi-file-document"></i> &nbsp;SumoDoc</a>
             <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-pencil"></i> &nbsp;SumoCreate</a>
-            <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-school"></i> &nbsp;University Apps</a>
             <a href="#" class="sidebar-nav-item med-font list-group-item list-group-item-action bg-custom light-text"><i class="mdi mdi-email"></i> &nbsp;Email</a>
 
             <div class="">
@@ -90,9 +78,9 @@
     
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <!-- <li class="nav-item">
-                  <a href="/users/logout" class="btn btn-secondary">Logout</a>
-                </li> -->
+                <li class="nav-item" id="noConnectionButton" style="color: #fff;display: none;">
+                  <a class="btn btn-danger"><i class="mdi mdi-wifi-off"></i> Currently Offline</a>
+                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle name-top-bar-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 10px 10px !important;font-size: 14px;color: #000000;background-color: #fff !important;">
                     <%= name %>
@@ -233,10 +221,6 @@
         <script src="../js/dashboard.js"></script>
 
         <script>
-          $(window).on('load', function(){ 
-            $('#loading').hide();
-          });
-
           $(document).ready(function() {
             radioSelect('science', '#icon-radio0');
           });

@@ -962,7 +962,7 @@ body {
 }
 
 #page-content-wrapper {
-  height: 100%;
+  min-height: 100%;
   position: absolute;
   right: 0;
   background-color: #cccccc3b;

@@ -3,6 +3,13 @@ var docName = document.getElementById('documentTitle');
 var docId = document.getElementById('secretIdValue');
 var docTimeSaved = document.getElementById('docTimeSaved');
 
+//
+$('#docTextArea').keyup(function(event) {
+    if($('#docTextArea').height() > 1122.52){
+        console.log(1);
+    }
+});
+
 // Save the document updates
 function saveDocData(){
     $.post('/doc/savedoc', {

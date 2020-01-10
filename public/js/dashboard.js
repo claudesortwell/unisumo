@@ -1,3 +1,16 @@
+connectionStaus = true;
+
+// Checking if internet conntection is active
+window.setInterval(function(){
+  if(navigator.onLine && !connectionStaus) {
+    connectionStaus = true;
+    $('#noConnectionButton').fadeToggle();
+  } else if(!navigator.onLine && connectionStaus) {
+    connectionStaus = false;
+    $('#noConnectionButton').fadeToggle();
+  }
+}, 5000);
+
 function menuToggle() {
   $('#menu-hide').toggle();
   $('#menu-show').toggle();

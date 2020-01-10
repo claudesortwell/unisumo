@@ -1,48 +1,53 @@
-<h1 class="dark-text" style="font-weight: 600;font-size: 35px;">Dashboard</h1>
+<div id="dashboard-main">
+    <h1 class="dark-text" style="font-weight: 600;font-size: 35px;display: inline-block;color: #000;">Dashboard</h1>
+    
+    <button onclick="window.open('https://ilearn.mq.edu.au/login/index.php','_blank')" type="submit" class="btn btn-primary float-right" style="margin: 0px 5px;" id="savebtn"><i class="mdi mdi-tab-plus"></i> Open iLearn</button>
+    <button onclick="window.open('https://student1.mq.edu.au/','_blank')" type="submit" class="btn btn-primary float-right" style="margin: 0px 5px;" id="savebtn"><i class="mdi mdi-tab-plus"></i> Open eStudent</button>
 
-<hr>
+    <hr>
 
-<div class="row">
-    <div class="col-sm">
-        <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
-            <h5 class="card-header">Subjects</h5>
-            <ul class="list-group list-group-flush">
-                <% if(subjects != 'undefined') { %>
-                    <% var index = 0 %>
-                    <% subjects.forEach(function(subject) { %>
-                <li class="list-group-item <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><h5 class="align-middle" style="display: inline-block;margin-top: 10px;"s><i class="<%= subject.icon %>"></i> <%= subject.name %></h5><a class="btn btn-primary float-right text-white"><i class="mdi mdi-exit-to-app"></i> View</a></li>
-                        <% index ++ %>
-                    <% }); %>
-                <% } %> 
-            </ul>
-        </div>
-    </div>
-
-    <div class="col-lg">
-        <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Dark card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
+                <h5 class="card-header">Subjects</h5>
+                <ul class="list-group list-group-flush">
+                    <% if(subjects != 'undefined') { %>
+                        <% var index = 0 %>
+                        <% subjects.forEach(function(subject) { %>
+                    <li class="list-group-item <% if(darkmode == true){%> bg-dark <%}else{%> bg-light <% } %>"><h5 class="align-middle" style="display: inline-block;margin-top: 10px;"s><i class="<%= subject.icon %>"></i> <%= subject.name %></h5><a class="btn btn-primary float-right text-white"><i class="mdi mdi-exit-to-app"></i> View</a></li>
+                            <% index ++ %>
+                        <% }); %>
+                    <% } %> 
+                </ul>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg">
-        <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Dark card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div class="col-lg">
+            <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Dark card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg">
-        <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Dark card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+        <div class="col-lg">
+            <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Dark card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg">
+            <div class="card <% if(darkmode == true){%> text-white bg-dark dark-box-shadow mb-3 <%}else{%> bg-light <% } %>">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h5 class="card-title">Dark card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
         </div>
     </div>

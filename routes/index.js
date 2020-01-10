@@ -20,6 +20,7 @@ router.get('/dashboard', ensureAuthenticated, ensureActiveSub, function(req, res
             res.render('home', {
                 layout: 'dashboardlayout',
                 name: req.user.name,
+                activeTab: 'dashboard',
                 darkmode: req.user.darkMode,
                 uni: req.user.uni,
                 subjects: subject, 
@@ -155,24 +156,5 @@ router.get('/darkmode', ensureAuthenticated, ensureActiveSub, function(req, res)
         }
     });
 });
-
-
-// Maq uni app page
-router.get('/uniapp', ensureAuthenticated, ensureActiveSub, function(req, res) {
-    Subject.find({ownedUser: req.user._id})
-        .then(subject => {
-            res.render('maquni', {
-                layout: 'dashboardlayout',
-                email: req.user.email,
-                uni: req.user.uni,
-                name: req.user.name,
-                darkmode: req.user.darkMode,
-                subjects: subject, 
-                title:'Uni Apps'
-            });
-        })
-        .catch(err => console.log(err));
-});
-
 
 module.exports = router;

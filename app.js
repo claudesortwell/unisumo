@@ -1,11 +1,13 @@
 require('dotenv').config();
-const express = require('express'); 
+const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const { ensureAuthenticated } = require('./config/auth');
+const {
+    ensureAuthenticated
+} = require('./config/auth');
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 const STRIPE_API = require('./config/stripe-functions.js');
 
@@ -13,9 +15,14 @@ const STRIPE_API = require('./config/stripe-functions.js');
 const app = express();
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
- 
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true
+}));
+
 // Passport config
 require('./config/passport')(passport);
 
@@ -23,7 +30,9 @@ require('./config/passport')(passport);
 db = require('./config/keys').MongoURI;
 
 // Connect to Mongo
-mongoose.connect(db, {useNewUrlParser: true })
+mongoose.connect(db, {
+        useNewUrlParser: true
+    })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
 
@@ -38,7 +47,9 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"))
 
 // Bodyparser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({
+    extended: false
+}));
 
 // Express Session
 app.use(session({
@@ -51,11 +62,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Conntect Flash
+// Connect Flash
 app.use(flash());
 
 // Global Vars
-app.use((req, res, next) =>{
+app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
@@ -70,14 +81,14 @@ app.use('/users', require('./routes/users'));
 
 // Processing Stripe Payment
 app.use('/processPayment', ensureAuthenticated, (req, res) => {
-    if(req.body.planId == null && req.body.footer != 'cardfooter'){
+    if (req.body.planId == null && req.body.footer != 'cardfooter') {
         req.flash('error_msg', "Please select card and enter card details.");
         res.redirect('/pay');
         return;
     }
 
     STRIPE_API.createCustomerAndSubscription(req.body, req.user).then(() => {
-        setTimeout(function(){
+        setTimeout(function () {
             req.flash('success_msg', "Payment was successful, enjoy Unisumo");
             res.redirect('/dashboard');
         }, 2000);
@@ -89,14 +100,20 @@ app.use('/processPayment', ensureAuthenticated, (req, res) => {
 
 // If page not found
 app.use('*', (req, res) => {
-    if(req.isAuthenticated()) {
-        res.render('404', {title: 'Page not found 404', auth: 'yes'});
+    if (req.isAuthenticated()) {
+        res.render('404', {
+            title: 'Page not found 404',
+            auth: 'yes'
+        });
     } else {
-        res.render('404', {title: 'Page not found 404', auth: 'no'});
+        res.render('404', {
+            title: 'Page not found 404',
+            auth: 'no'
+        });
     }
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8001;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`)); 
+app.listen(PORT, console.log(`Server started on port ${PORT}`));

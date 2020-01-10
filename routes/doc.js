@@ -25,6 +25,7 @@ router.get('/ed:id', ensureAuthenticated, ensureActiveSub, function(req, res) {
                         readModuleFile("../sumodocs/" + req.user._id + "/doc/" + req.params.id + "/" + document.docTextVersion + '.txt', function (err, words) {
                             res.render('docs', {
                                 layout: 'dashboardlayout',
+                                activeTab: 'docs',
                                 name: req.user.name,
                                 email: req.user.email,
                                 uni: req.user.uni,
